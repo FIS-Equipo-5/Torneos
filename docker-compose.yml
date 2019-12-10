@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  server:
+    container_name: server
+    build: . 
+    # is the same as
+    # context: .
+    # dockerfile: Dockerfile
+    #
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    restart: always
+
+  db:
+    container_name: db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - mongoVolume:/data/db
+
+volumes: 
+  mongoVolume:
+        
+  
