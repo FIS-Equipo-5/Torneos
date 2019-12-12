@@ -11,7 +11,8 @@ services:
     depends_on:
       - db
     environment:
-      - DB_URL=mongodb://db:27017/tournamentsDB
+      #- DB_URL=mongodb://db:27017/tournamentsDB
+      - DB_URL=mongodb+srv://admin:admin@cluster0-k0rto.mongodb.net/tournamentsDB?retryWrites=true&w=majority
     ports:
       - "3000:3000"
     restart: always
