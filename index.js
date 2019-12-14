@@ -1,4 +1,3 @@
-require('./db');
 
 const mongoose = require('mongoose');
 const dbConfig = require('./conf/dbConfig.js');
@@ -21,6 +20,7 @@ console.log("Setting up database");
 
 mongoose.Promise = global.Promise;
 
+console.log(`Connecting to ${dbConfig.url}!`);
 
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true
