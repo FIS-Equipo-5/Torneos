@@ -1,7 +1,6 @@
 module.exports = (app) => {
 
     const matchController = require('../controllers/matchController');
-    const BASE_API_PATH = "/api/v1"
     
     // MATCH
     app.get('/', (request, response) => response.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));

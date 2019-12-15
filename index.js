@@ -8,7 +8,7 @@ const { logger } = require('./app/utils');
 const bodyParser = require('body-parser');
 
 
-
+global.BASE_API_PATH = "/api/v1"
 console.log('Setting up API server');
 
 
@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(httpLogger);
 app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
 // Require Transfer routes
-require('./app/router/router')(app);
+require('./app/router/')(app);
 
 // app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
 
