@@ -22,12 +22,18 @@ const matchSchema = new mongoose.Schema({
         visitorScore: { type: Number, min: 0 },
         goals: [{
             player: { type: String },
-            type: { type: String },
+            type: {
+                type: String,
+                enum: ['free-kick', 'penalty-kick', 'goal-kick'],
+            },
             time: { type: String },
         }],
         cards: [{
             player: { type: String },
-            type: { type: String },
+            type: {
+                type: String,
+                enum: ['Red', 'Yellow'],
+            },
             time: { type: String },
         }]
     }

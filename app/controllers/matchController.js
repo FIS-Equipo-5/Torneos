@@ -48,7 +48,7 @@ module.exports.getMatchById = function (request, response) {
 };
 
 //PUT
-module.exports.updateMatch= function(request, response){
+module.exports.updateMatch = function (request, response) {
     // console.log(Date() + ` -PUT /match/${request.params.match_id}`)
 
     // // Validate request
@@ -91,13 +91,13 @@ module.exports.updateMatch= function(request, response){
     // });
 };
 
-module.exports.updateMatchStats= function(request, response){
+module.exports.updateMatchStats = function (request, response) {
 };
 
-module.exports.deleteMatchById= function(request, response){
+module.exports.deleteMatchById = function (request, response) {
 };
 
-module.exports.deleteAllMatchesByTournamentId= function(request, response){
+module.exports.deleteAllMatchesByTournamentId = function (request, response) {
 };
 
 function checkMatch(match) {

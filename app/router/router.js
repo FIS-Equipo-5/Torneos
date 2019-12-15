@@ -6,7 +6,7 @@ module.exports = (app) => {
     // MATCH
     app.get('/', (request, response) => response.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
     app.get(BASE_API_PATH + "/matches", matchController.getAllMatches);
-    app.get(BASE_API_PATH + "/match/:id", matchController.getMatchById);
+    app.get(BASE_API_PATH + "/match/:match_id", matchController.getMatchById);
 
     // app.post(BASE_API_PATH+"/match",matchController.postMatch);
 
