@@ -1,21 +1,27 @@
 
+const express = require('express');
 const mongoose = require('mongoose');
 const dbConfig = require('./conf/dbConfig.js');
 const moment = require("moment");
 const { httpLogger } = require('./app/utils');
 const { logger } = require('./app/utils');
+const bodyParser = require('body-parser');
 
 
 
-var express = require('express');
-var BASE_API_PATH = '/api/v1/';
+console.log('Setting up API server');
 
 
 var app = express();
+app.use(bodyParser.json());
 
 
 app.use(httpLogger);
 app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
+// Require Transfer routes
+require('./app/router/router')(app);
+
+// app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
 
 
 
