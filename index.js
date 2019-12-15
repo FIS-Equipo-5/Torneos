@@ -69,4 +69,4 @@ const match = new Match({
 });
 
 
-match.save();
+match.save().catch((error) => logger.warn("Some fields in the match object are required"));
