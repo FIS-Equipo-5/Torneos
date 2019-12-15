@@ -1,17 +1,21 @@
 
+const express = require('express');
 const mongoose = require('mongoose');
 const dbConfig = require('./conf/dbConfig.js');
+const bodyParser = require('body-parser');
+
 
 
 console.log('Setting up API server');
 
-var express = require('express');
-var BASE_API_PATH = '/api/v1/';
-
 
 var app = express();
+app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
+// Require Transfer routes
+require('./app/router/router')(app);
+
+// app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
 
 
 
@@ -36,15 +40,3 @@ mongoose.connect(dbConfig.url, {
 
 
 console.log('Everything ready!');
-
-
-const Match = require('./app/models/match.js');
-
-const match = new Match({
-    match_id: '1',
-    visitorTeamUuid: '1',
-    homeTeamUuid: '2',
-    matchDate: new Date()
-});
-
-match.save();
