@@ -1,9 +1,11 @@
 
 const mongoose = require('mongoose');
 const dbConfig = require('./conf/dbConfig.js');
-const moment = require("moment")
+const moment = require("moment");
+const { httpLogger } = require('./app/utils');
+const { logger } = require('./app/utils');
 
-console.log('Setting up API server');
+
 
 var express = require('express');
 var BASE_API_PATH = '/api/v1/';
@@ -11,23 +13,27 @@ var BASE_API_PATH = '/api/v1/';
 
 var app = express();
 
+
+app.use(httpLogger);
 app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
 
 
 
 // Setting up database
-console.log("Setting up database");
+logger.info("Setting up database");
 
 mongoose.Promise = global.Promise;
 
-console.log(`Connecting to ${dbConfig.url}!`);
+logger.info(`Connecting to ${dbConfig.url}!`);
 
 mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
 }).then(() => {
-    console.log("Successfully connected to the database");
+    logger.info("Successfully connected to the database")
     app.listen(dbConfig.port, () => {
-        console.log(`Express App listening on port ${dbConfig.port}!`)
+        logger.info(`Express App listening on port ${dbConfig.port}!`)
         const Tournament = require('./app/models/tournament.js');
 
         const tournament = new Tournament({
@@ -37,10 +43,10 @@ mongoose.connect(dbConfig.url, {
             startDate: moment()
         });
 
-        tournament.save()
+        tournament.save().catch((error) => logger.warn("Dummy Tournament already created"))
     });
 }).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
+    logger.error('Could not connect to the database. Exiting now...', err);
     process.exit();
 });
 
