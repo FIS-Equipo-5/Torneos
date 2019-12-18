@@ -1,11 +1,13 @@
 const Tournament = require('../models/tournament');
 const Match = require('../models/match.js');
 const moment = require("moment");
+const { logger } = require('../utils');
+
 
 module.exports.populate = async function () {
 
     //TODO: check if BD has been inicialized before hand 
-
+    logger.info("Populating DB");
     const tournament = new Tournament({
         name: "tournament1",
         type: "clasification",
