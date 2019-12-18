@@ -2,7 +2,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dbConfig = require('./conf/dbConfig.js');
-const moment = require("moment");
 const { httpLogger } = require('./app/utils');
 const { logger } = require('./app/utils');
 const bodyParser = require('body-parser');
@@ -18,12 +17,9 @@ app.use(bodyParser.json());
 
 app.use(httpLogger);
 app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
-// Require Transfer routes
+
+// Require routes routes
 require('./app/router/')(app);
-
-// app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
-
-
 
 // Setting up database
 logger.info("Setting up database");
@@ -40,16 +36,7 @@ mongoose.connect(dbConfig.url, {
     logger.info("Successfully connected to the database")
     app.listen(dbConfig.port, () => {
         logger.info(`Express App listening on port ${dbConfig.port}!`)
-        const Tournament = require('./app/models/tournament.js');
-
-        const tournament = new Tournament({
-            name: "tournament1",
-            type: "clasification",
-            endDate: moment(),
-            startDate: moment()
-        });
-
-        tournament.save().catch((error) => logger.warn("Dummy Tournament already created"))
+        require('./app/services/populate.js').populate();
     });
 }).catch(err => {
     logger.error('Could not connect to the database. Exiting now...', err);
@@ -59,14 +46,4 @@ mongoose.connect(dbConfig.url, {
 
 
 
-const Match = require('./app/models/match.js');
 
-const match = new Match({
-    match_id: '1',
-    visitorTeamUuid: '1',
-    homeTeamUuid: '2',
-    matchDate: new Date()
-});
-
-
-match.save().catch((error) => logger.warn("Some fields in the match object are required"));
