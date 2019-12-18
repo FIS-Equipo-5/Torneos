@@ -19,7 +19,6 @@ let _getTournamentById = async (req, res, next) => {
                 res.json({ message: "Not Found" });
             } else {
                 res.json(tournaments);
-                next()
             }
         }
     } catch (error) {
