@@ -43,7 +43,7 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
-
+module.exports = app;
 
 
 
