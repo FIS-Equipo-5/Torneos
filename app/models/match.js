@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const matchSchema = new mongoose.Schema({
 
     tournamentUuid: {
@@ -39,5 +40,6 @@ const matchSchema = new mongoose.Schema({
     }
 
 });
+matchSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Match', matchSchema);
