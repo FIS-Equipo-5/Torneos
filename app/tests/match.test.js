@@ -6,46 +6,46 @@ chai.use(require('chai-like'));
 chai.use(require('chai-things'));
 describe("App Running!", () => {
     let idMatch
-    it("Get Matches", done => {
-        let bodyexpeted = {
+    // it("Get Matches", done => {
+    //     let bodyexpeted = {
 
-            "stats": {
-                "localScore": 3,
-                "visitorScore": 1,
-                "goals": [
-                    {
-                        "player": "Joaquin",
-                        "type": "free-kick",
-                        "time": "15"
-                    },
-                    {
-                        "player": "Joaquin",
-                        "type": "penalty-kick",
-                        "time": "90"
-                    }
-                ],
-                "cards": [
-                    {
-                        "player": "Assunçao",
-                        "type": "Yellow",
-                        "time": "22"
-                    }
-                ]
-            },
-            "tournamentUuid": "1",
-            "visitorTeamUuid": "1",
-            "localTeamUuid": "2"
-        }
-        chai
-            .request(app)
-            .get(BASE_API_PATH + '/matches')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.contain.something.like(bodyexpeted)
-                idMatch = res.body[0]["_id"]
-                done();
-            });
-    });
+    //         "stats": {
+    //             "localScore": 3,
+    //             "visitorScore": 1,
+    //             "goals": [
+    //                 {
+    //                     "player": "Joaquin",
+    //                     "type": "free-kick",
+    //                     "time": "15"
+    //                 },
+    //                 {
+    //                     "player": "Joaquin",
+    //                     "type": "penalty-kick",
+    //                     "time": "90"
+    //                 }
+    //             ],
+    //             "cards": [
+    //                 {
+    //                     "player": "Assunçao",
+    //                     "type": "Yellow",
+    //                     "time": "22"
+    //                 }
+    //             ]
+    //         },
+    //         "tournamentUuid": "1",
+    //         "visitorTeamUuid": "1",
+    //         "localTeamUuid": "2"
+    //     }
+    //     chai
+    //         .request(app)
+    //         .get(BASE_API_PATH + '/matches')
+    //         .end((err, res) => {
+    //             expect(res).to.have.status(200);
+    //             expect(res.body).to.contain.something.like(bodyexpeted)
+    //             idMatch = res.body[0]["_id"]
+    //             done();
+    //         });
+    // });
 
     // it("Get a tournament", done => {
     //     chai
