@@ -28,8 +28,31 @@ let _getTournamentById = async (req, res, next) => {
 
 };
 
+let _postTournament = async (req, res) => {
+    let tournaments = new Tournament(req.body)
+    try {
+        let response = await tournaments.save()
+        res.status(201);
+        res.json(response);        
+    } catch (error) {
+        if (error.errors.name.kind == "required"){
+            res.status(400);
+            res.json({ message: "Bad Request" });
+        }else if (error.errors.name.kind == "unique"){
+            res.status(409);
+            res.json({ message: "Conflict" });
+        }else{
+            res.status(500);
+            res.json({ message: "Internal Error" });
+        }
+    }
+};
+
+
+
 module.exports = {
     getAllTournaments: _getAllTournaments,
-    getTournamentById: _getTournamentById
+    getTournamentById: _getTournamentById,
+    postTournament: _postTournament
 
 }
