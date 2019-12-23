@@ -2,17 +2,18 @@
 
 
 const Match = require('../models/match');
+const logger = require('../utils/logger');
 
 //GET
 module.exports.getAllMatches = function (request, response) {
-    console.log(Date() + " -GET /matches")
+    logger.debug(Date() + " -GET /matches")
 
     Match.find()
         .then(matches => {
-            console.log(Date() + " SUCCESS: -GET /matches")
+            logger.info(Date() + " SUCCESS: -GET /matches")
             response.send(matches);
         }).catch(err => {
-            console.log(Date() + " ERROR: -GET /matches , Some error occurred while retrieving matches")
+            logger.error(Date() + " ERROR: -GET /matches , Some error occurred while retrieving matches")
             response.status(500).send({
                 message: err.message || "Some error occurred while retrieving matches."
             });
@@ -20,26 +21,26 @@ module.exports.getAllMatches = function (request, response) {
 };
 
 module.exports.getMatchById = function (request, response) {
-    console.log(Date() + ` -GET /match/${request.params.match_id}`)
+    logger.debug(Date() + ` -GET /match/${request.params.match_id}`)
 
     Match.findById(request.params.match_id)
         .then(match => {
             if (!match) {
-                console.log(Date() + ` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
+                logger.error(Date() + ` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
                 return response.status(404).send({
                     message: "Match not found with id " + request.params.match_id
                 });
             }
-            console.log(Date() + ` SUCCESS: -GET /match/${request.params.match_id}`)
+            logger.info(Date() + ` SUCCESS: -GET /match/${request.params.match_id}`)
             response.send(match);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
-                console.log(Date() + ` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
+                logger.error(Date() + ` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
                 return response.status(404).send({
                     message: "Match not found with id " + request.params.match_id
                 });
             }
-            console.log(Date() + ` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
+            log.error(Date() + ` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
             return response.status(500).send({
                 message: "Error retrieving match with id " + request.params.match_id
             });
