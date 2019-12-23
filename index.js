@@ -37,11 +37,46 @@ mongoose.connect(dbConfig.url, {
     app.listen(dbConfig.port, () => {
         logger.info(`Express App listening on port ${dbConfig.port}!`)
         require('./app/services/populate.js').populate();
+        // const swaggerUi = require('swagger-ui-express');
+        // const swaggerDocument = require('./swagger.json');
+
+        // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+        const expressSwagger = require('express-swagger-generator')(app);
+
+        let options = {
+            swaggerDefinition: {
+                info: {
+                    description: 'FIS Group 5 Tournaments API',
+                    title: 'Tournaments API',
+                    version: '1.0.0',
+                },
+                host: 'localhost:3000',
+                basePath: '/v1',
+                produces: [
+                    "application/json",
+                    "application/xml"
+                ],
+                schemes: ['http'],
+                // securityDefinitions: {
+                //     JWT: {
+                //         type: 'apiKey',
+                //         in: 'header',
+                //         name: 'Authorization',
+                //         description: "",
+                //     }
+                // }
+            },
+            basedir: __dirname, //app absolute path
+            files: ['./docs/*.js'] //Path to the API handle folder
+        };
+        expressSwagger(options)
     });
 }).catch(err => {
     logger.error('Could not connect to the database. Exiting now...', err);
     process.exit();
 });
+
 
 module.exports = app;
 

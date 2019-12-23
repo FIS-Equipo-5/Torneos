@@ -14,13 +14,11 @@ describe("App Running!", () => {
     //             "visitorScore": 1,
     //             "goals": [
     //                 {
-    //                     "_id": "5dfa8e9081da9e16748d6687",
     //                     "player": "Joaquin",
     //                     "type": "free-kick",
     //                     "time": "15"
     //                 },
     //                 {
-    //                     "_id": "5dfa8e9081da9e16748d6686",
     //                     "player": "Joaquin",
     //                     "type": "penalty-kick",
     //                     "time": "90"
@@ -28,20 +26,15 @@ describe("App Running!", () => {
     //             ],
     //             "cards": [
     //                 {
-    //                     "_id": "5dfa8e9081da9e16748d6688",
     //                     "player": "Assunçao",
     //                     "type": "Yellow",
     //                     "time": "22"
     //                 }
     //             ]
     //         },
-    //         "_id": "5dfa8e9081da9e16748d6685",
     //         "tournamentUuid": "1",
     //         "visitorTeamUuid": "1",
-    //         "localTeamUuid": "2",
-    //         "matchDate": "2019-12-18T20:39:44.373Z",
-    //         "__v": 0
-
+    //         "localTeamUuid": "2"
     //     }
     //     chai
     //         .request(app)
@@ -49,7 +42,7 @@ describe("App Running!", () => {
     //         .end((err, res) => {
     //             expect(res).to.have.status(200);
     //             expect(res.body).to.contain.something.like(bodyexpeted)
-    //             idTournament = res.body[0]["_id"]
+    //             idMatch = res.body[0]["_id"]
     //             done();
     //         });
     // });
