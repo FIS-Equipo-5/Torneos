@@ -31,7 +31,8 @@ logger.info(`Connecting to ${dbConfig.url}!`);
 mongoose.connect(dbConfig.url, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 }).then(() => {
     logger.info("Successfully connected to the database")
     app.listen(dbConfig.port, () => {

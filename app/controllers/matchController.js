@@ -3,13 +3,15 @@
 
 const Match = require('../models/match');
 const logger = require('../utils/logger');
+const mongoose = require('mongoose');
+
 
 //GET
 module.exports.getAllMatches = function (request, response) {
 
     Match.find()
         .then(matches => {
-            logger.info( "SUCCESS: GET /matches")
+            logger.info("SUCCESS: GET /matches")
             response.send(matches);
         }).catch(err => {
             logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")
@@ -47,47 +49,35 @@ module.exports.getMatchById = function (request, response) {
 };
 
 //PUT
-module.exports.updateMatch = function (request, response) {
-    // console.log(Date() + ` -PUT /match/${request.params.match_id}`)
+module.exports.updateMatch = async function (request, response) {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(request.params.match_id)) {
+            response.status(404);
+            response.json({ message: "Not Found" });
+            return
+        }
+        // await Match.updateOne({ _id: request.params.match_id }, request.body);
+        let match = await Match.findByIdAndUpdate({ _id: request.params.match_id }, request.body, {
+            new: true
+        });
+        if (!match) {
+            response.status(404);
+            response.json({ message: "Not Found" });
+            return
+        } else {
+            response.status(200);
+            response.json(match);
+            return
+        }
 
-    // // Validate request
-    // if(!checkTransfer(request.body)) {
-    //     console.log(Date() + ` ERROR: -PUT /transfer/${request.params.transfer_id} - The transfer not match with the expected input ` + JSON.stringify(request.body));
-    //     return response.status(400).send({
-    //         message: "Transfer not match with the expected input"
-    //     });
-    // }
+    } catch (error) {
+        logger.error(error);
+        response.status(500);
+        response.json({ message: "Internal Error" });
+        return
 
-    // // Find Transfer and update it with the request body
-    // Transfer.findByIdAndUpdate(request.params.transfer_id, {
-    //     origin_team_id: request.body.origin_team_id, 
-    //     destiny_team_id: request.body.destiny_team_id,
-    //     transfer_date: request.body.transfer_date, 
-    //     contract_years: request.body.contract_years, 
-    //     cost: request.body.cost, 
-    //     player_id: request.body.player_id, 
-    // }, {new: true})
-    // .then(transfer => {
-    //     if(!transfer) {
-    //         console.log(Date() + ` ERROR: -PUT /transfer/${request.params.transfer_id} - Not found transfer with id: ${request.params.transfer_id}`);
-    //         return response.status(404).send({
-    //             message: "Transfer not found with id " + request.params.transfer_id
-    //         });
-    //     }
-    //     console.log(Date() + ` SUCCESS: -PUT /transfer/${request.params.transfer_id}`)
-    //     response.send(transfer);
-    // }).catch(err => {
-    //     if(err.kind === 'ObjectId') {
-    //         console.log(Date() + ` ERROR: -PUT /transfer/${request.params.transfer_id} - Not found transfer with id: ${request.params.transfer_id}`);
-    //         return response.status(404).send({
-    //             message: "Transfer not found with id " + request.params.transfer_id
-    //         });                
-    //     }
-    //     console.log(Date() + ` ERROR: -PUT /transfer/${request.params.transfer_id} - Error updating transfer with id: ${request.params.transfer_id}`);
-    //     return response.status(500).send({
-    //         message: "Error updating transfer with id " + request.params.transfer_id
-    //     });
-    // });
+    }
+
 };
 
 module.exports.updateMatchStats = function (request, response) {
