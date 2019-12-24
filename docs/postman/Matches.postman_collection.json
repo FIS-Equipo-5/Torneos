@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "773549a7-c512-44c3-b22f-bdb2976a862d",
+		"_postman_id": "1e9ff8a2-ef1d-40b3-84f5-a3629587bdd9",
 		"name": "Matches",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -22,7 +22,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/match/5dfbbbb3d3f0ab2ab050e5cd",
+					"raw": "http://localhost:3000/api/v1/match/5e00df111c7d27168cc96af5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -32,7 +32,45 @@
 						"api",
 						"v1",
 						"match",
-						"5dfbbbb3d3f0ab2ab050e5cd"
+						"5e00df111c7d27168cc96af5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT MATCH",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stats\": {\r\n        \"localScore\": 3,\r\n        \"visitorScore\": 1,\r\n        \"goals\": [\r\n            {\r\n                \"_id\": \"5e00df111c7d27168cc96af7\",\r\n                \"player\": \"Joaquin\",\r\n                \"type\": \"free-kick\",\r\n                \"time\": \"15\"\r\n            },\r\n            {\r\n                \"_id\": \"5e00df111c7d27168cc96af6\",\r\n                \"player\": \"Joaquin\",\r\n                \"type\": \"penalty-kick\",\r\n                \"time\": \"90\"\r\n            }\r\n        ],\r\n        \"cards\": [\r\n            {\r\n                \"_id\": \"5e00df111c7d27168cc96af8\",\r\n                \"player\": \"Assunçao\",\r\n                \"type\": \"Yellow\",\r\n                \"time\": \"22\"\r\n            }\r\n        ]\r\n    },\r\n    \"_id\": \"5e00df111c7d27168cc96af5\",\r\n    \"tournamentUuid\": \"1\",\r\n    \"visitorTeamUuid\": \"1\",\r\n    \"localTeamUuid\": \"2\",\r\n    \"matchDate\": \"2019-12-23T15:36:49.120Z\",\r\n    \"__v\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/match/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"match",
+						""
 					]
 				}
 			},

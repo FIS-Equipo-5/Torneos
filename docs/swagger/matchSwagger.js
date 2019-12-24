@@ -45,7 +45,7 @@
 */
 /**
 * This function updates the expecified match
-* @route PUT /match
+* @route PUT /match/{match_id}
 * @group Matches - Operations about Match
 * @param {string} match_id.required
 * @returns {object} 200 - match updated
