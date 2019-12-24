@@ -12,13 +12,16 @@ let _getTournamentById = async (req, res, next) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
             res.status(404);
             res.json({ message: "Not Found" });
+            return
         } else {
             let tournaments = await Tournament.findById(req.params.id)
             if (!tournaments) {
                 res.status(404);
                 res.json({ message: "Not Found" });
+                return
             } else {
                 res.json(tournaments);
+                return
             }
         }
     } catch (error) {
@@ -42,6 +45,7 @@ let _postTournament = async (req, res) => {
             res.status(409);
             res.json({ message: "Conflict" });
         } else {
+            logger.error(error);
             res.status(500);
             res.json({ message: "Internal Error" });
         }
@@ -49,7 +53,7 @@ let _postTournament = async (req, res) => {
 };
 
 
-let _putTournament = async (req, res) => {
+let _putTournamentById = async (req, res) => {
     if (!checkBody(req.body)) {
         res.status(400);
         res.json({ message: "Bad Request" });
@@ -63,24 +67,50 @@ let _putTournament = async (req, res) => {
         }
         await Tournament.updateOne({ _id: req.params.id }, req.body);
         let tournament = await Tournament.findById({ _id: req.params.id }, req.body);
-        if (!tournament){
+        if (!tournament) {
             res.status(404);
             res.json({ message: "Not Found" });
             return
-        }else{
+        } else {
             res.status(200);
             res.json(tournament);
             return
         }
 
     } catch (error) {
-        
+        logger.error(error);
         res.status(500);
-        res.json({ message: error });
+        res.json({ message: "Internal Error" });
         return
 
     }
 };
+
+let _deleteTournamentById = async (req, res) => {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            res.status(404);
+            res.json({ message: "Not Found" });
+            return
+        }
+        let result = await Tournament.deleteOne({ _id: req.params.id });
+        if (result.n == 0) {
+            res.status(404);
+            res.json({ message: "Not Found" });
+            return
+        }
+        res.status(200);
+        res.json({ message: "Deleted" });
+        return
+    } catch (error) {
+        logger.error(error);
+        res.status(500);
+        res.json({ message: "Internal Error" });
+        return
+
+    }
+};
+
 
 
 let checkBody = (body) => {
@@ -96,6 +126,7 @@ module.exports = {
     getAllTournaments: _getAllTournaments,
     getTournamentById: _getTournamentById,
     postTournament: _postTournament,
-    putTournament: _putTournament
+    putTournamentById: _putTournamentById,
+    deleteTournamentById: _deleteTournamentById
 
 }
