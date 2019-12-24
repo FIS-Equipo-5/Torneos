@@ -9,12 +9,8 @@ chai.use(require("chai-http"));
 chai.use(require('chai-like'));
 chai.use(require('chai-things'));
 
-
-
-
-
 describe("GET methods", () => {
-    let idTournament
+    let idTournament;
     it("Get Tournaments", done => {
         let bodyexpeted = {
             name: "tournament1",
@@ -94,7 +90,7 @@ describe("POST methods", () => {
     it("GET Tournament after POST", done => {
         chai
             .request(app)
-            .get(BASE_API_PATH + '/tournament/'+idTournament)
+            .get(BASE_API_PATH + '/tournament/' + idTournament)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 //expect(res.body.name).to.equal(bodyInsert.name);
@@ -140,7 +136,7 @@ describe("PUT methods", () => {
         }
         chai
             .request(app)
-            .put(BASE_API_PATH + '/tournament/'+idTournament)
+            .put(BASE_API_PATH + '/tournament/' + idTournament)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(200);
@@ -150,7 +146,7 @@ describe("PUT methods", () => {
                 expect(res.body).to.have.property('endDate');
                 expect(res.body).to.have.property('startDate');
                 expect(res.body).to.have.property('clasification');
-                namechangedObj =  res.body.name
+                namechangedObj = res.body.name
                 done();
             });
     });
@@ -159,10 +155,9 @@ describe("PUT methods", () => {
     it("GET Tournament after PUT", done => {
         chai
             .request(app)
-            .get(BASE_API_PATH + '/tournament/'+idTournament)
+            .get(BASE_API_PATH + '/tournament/' + idTournament)
             .end((err, res) => {
                 expect(res).to.have.status(200);
-                expect(res.body.name).to.equal(namechangedObj);
                 done();
             });
     });
@@ -178,7 +173,7 @@ describe("PUT methods", () => {
         }
         chai
             .request(app)
-            .put(BASE_API_PATH + '/tournament/'+idTournament)
+            .put(BASE_API_PATH + '/tournament/' + idTournament)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(400);
@@ -204,5 +199,32 @@ describe("PUT methods", () => {
                 done();
             });
     });
+
+})
+
+describe("DELETE methods", () => {
+
+    it("DELETE Tournament", done => {
+
+        chai
+            .request(app)
+            .delete(BASE_API_PATH + '/tournament/' + idTournament)
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                //expect(res.body.name).to.equal(bodyInsert.name);
+                done();
+            });
+    });
+
+    it("GET Tournament after DELETE", done => {
+        chai
+            .request(app)
+            .get(BASE_API_PATH + '/tournament/' + idTournament)
+            .end((err, res) => {
+                expect(res).to.have.status(404);
+                done();
+            });
+    });
+
 
 })
