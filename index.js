@@ -68,7 +68,7 @@ mongoose.connect(dbConfig.url, {
                 // }
             },
             basedir: __dirname, //app absolute path
-            files: ['./docs/*.js'] //Path to the API handle folder
+            files: ['./docs/swagger/*.js'] //Path to the API handle folder
         };
         expressSwagger(options)
     });
