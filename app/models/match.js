@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const matchSchema = new mongoose.Schema({
-
+    location:{
+        type: String,
+        required: true
+    },
     tournamentUuid: {
         type: String,
         required: true

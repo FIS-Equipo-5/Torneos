@@ -17,14 +17,21 @@
  * @property {Array.<Goal>} goals - local team id
  * @property {Array.<Card>} cards - match date
  */
+/**
+ * @typedef Weather
+ * @property {string} dt_txt - day and hour
+ * @property {[string]} weather - description": "clear sky", "icon": "01n"
+ */
 
 /**
  * @typedef Match
+ * @property {string} location.required - match's location
  * @property {string} tournamentUuid.required - tournament id
  * @property {string} visitorTeamUuid.required - visitior team id
  * @property {string} localTeamUuid.required - local team id
  * @property {date} matchDate.required - match date
  * @property {Stats.model} stats - match stats
+ * @property {Weather.model} weather - weather 
  */
 /**
 * This function retrieve a complete list of matches

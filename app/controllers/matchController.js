@@ -4,21 +4,25 @@
 const Match = require('../models/match');
 const logger = require('../utils/logger');
 const mongoose = require('mongoose');
+const matchService = require('../services/matchService')
 
 
 //GET
 module.exports.getAllMatches = function (request, response) {
 
-    Match.find()
-        .then(matches => {
-            logger.info("SUCCESS: GET /matches")
-            response.send(matches);
-        }).catch(err => {
-            logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")
-            response.status(500).send({
-                message: err.message || "Some error occurred while retrieving matches."
-            });
-        })
+    Match.find().lean().then(async (matches) => {
+
+        for (let match of matches) {
+            let weather = await matchService.getWeather(match);
+            match.weather = weather;
+        }
+        response.send(matches);
+    }).catch(err => {
+        logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")
+        response.status(500).send({
+            message: err.message || "Some error occurred while retrieving matches."
+        });
+    });
 };
 
 module.exports.getMatchById = function (request, response) {

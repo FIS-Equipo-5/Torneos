@@ -1,8 +1,7 @@
 const Tournament = require('../models/tournament');
 const Match = require('../models/match.js');
-const moment = require("moment");
 const { logger } = require('../utils');
-
+const moment = require('moment');
 
 module.exports.populate = async function () {
 
@@ -18,11 +17,12 @@ module.exports.populate = async function () {
     await tournament.save().catch((error) => logger.warn("Dummy Tournament already created"))
 
 
-    const match = new Match({
+    const match1 = new Match({
+        location: 'sevilla',
         tournamentUuid: '1',
         visitorTeamUuid: '1',
         localTeamUuid: '2',
-        matchDate: moment(),
+        matchDate: moment('2019-12-26 13:00:00'),
         stats: {
             localScore: 3,
             visitorScore: 1,
@@ -44,5 +44,27 @@ module.exports.populate = async function () {
         }
     });
 
-    await match.save().catch((error) => logger.warn("Dummy match already created"));
+    await match1.save().catch((error) => logger.warn("Dummy match already created"));
+
+    const match2 = new Match({
+        location: 'sevilla',
+        tournamentUuid: '1',
+        visitorTeamUuid: '2',
+        localTeamUuid: '1',
+        matchDate: moment('2019-12-29 13:00:00'),
+        stats: {}
+    });
+
+    await match2.save().catch((error) => logger.warn("Dummy match already created"));
+
+    const match3 = new Match({
+        location: 'madrid',
+        tournamentUuid: '1',
+        visitorTeamUuid: '20',
+        localTeamUuid: '10',
+        matchDate: moment('2020-01-29 13:00:00'),
+        stats: {}
+    });
+
+    await match3.save().catch((error) => logger.warn("Dummy match already created"));
 }
