@@ -27,8 +27,8 @@ module.exports.getAllMatches = function (request, response) {
 
 module.exports.getMatchById = function (request, response) {
 
-    Match.findById(request.params.match_id)
-        .then(match => {
+    Match.findById(request.params.match_id).lean()
+        .then(async (match) => {
             if (!match) {
                 logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
                 return response.status(404).send({
@@ -36,6 +36,8 @@ module.exports.getMatchById = function (request, response) {
                 });
             }
             logger.info(`SUCCESS: -GET /match/${request.params.match_id}`)
+            let weather = await matchService.getWeather(match);
+            match.weather = weather;
             response.send(match);
         }).catch(err => {
             if (err.kind === 'ObjectId') {

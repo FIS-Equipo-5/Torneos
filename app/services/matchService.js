@@ -126,7 +126,7 @@ module.exports.getWeather = async function (match) {
             if (Array.isArray(weatherFiltered) && weatherFiltered.length) {
                 result = weatherFiltered;
             } else {
-                result = 'no datos';
+                result = 'no weather data';
             }
         }
     });
