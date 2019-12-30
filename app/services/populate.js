@@ -59,10 +59,10 @@ module.exports.populate = async function () {
 
     const match3 = new Match({
         location: 'madrid',
-        tournamentUuid: '1',
+        tournamentUuid: '2',
         visitorTeamUuid: '20',
         localTeamUuid: '10',
-        matchDate: moment('2020-01-29 13:00:00'),
+        matchDate: moment('2020-01-01 13:00:00'),
         stats: {}
     });
 

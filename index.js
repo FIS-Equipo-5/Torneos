@@ -37,7 +37,7 @@ mongoose.connect(dbConfig.url, {
     logger.info("Successfully connected to the database")
     app.listen(dbConfig.port, () => {
         logger.info(`Express App listening on port ${dbConfig.port}!`)
-        // require('./app/services/populate.js').populate();
+        require('./app/services/populate.js').populate();
         // const swaggerUi = require('swagger-ui-express');
         // const swaggerDocument = require('./swagger.json');
 

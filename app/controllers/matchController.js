@@ -54,6 +54,30 @@ module.exports.getMatchById = function (request, response) {
 
 };
 
+module.exports.getMatchByTournamentId = function (request, response) {
+    Match.find({ tournamentUuid: request.params.tournament_id }).lean()
+        .then(async (matches) => {
+
+            for (let match of matches) {
+                let weather = await matchService.getWeather(match);
+                match.weather = weather;
+            }
+            response.send(matches);
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                logger.error(` ERROR: -GET /matches/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)
+                return response.status(404).send({
+                    message: "tournament not found with id " + request.params.tournament_id
+                });
+            }
+            log.error(`ERROR: -GET /tournament/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)
+            return response.status(500).send({
+                message: "Error retrieving tournament with id " + request.params.tournament_id
+            });
+        });
+}
+
 //PUT
 module.exports.updateMatch = async function (request, response) {
     try {
