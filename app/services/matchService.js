@@ -110,6 +110,16 @@ module.exports.insertMatches = async function () {
     return match.id;
 }
 
+module.exports.deleteAllByTournament = async function (tournamentId) {
+    result = true;
+    try {
+        Match.deleteMany({ tournamentUuid: tournamentId });
+    } catch (error) {
+        result = false;
+    }
+    return result;
+}
+
 module.exports.getWeather = async function (match) {
     const url = `http://api.openweathermap.org/data/2.5/forecast?q=${match.location}&appid=${dbConfig.weatherApiKey}&units=metric`
     let result;

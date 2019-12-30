@@ -42,6 +42,14 @@
 * @returns {Error}  default - Unexpected error
 */
 /**
+* This function retrieve a complete list of matches
+* @route GET /matches/{tournament_id}
+* @group Matches - Operations about Match
+* @returns {object} 200 - An array with all the matches that belongs to the expecified tournament
+* @returns {Error}  404 - Not Found
+* @returns {Error}  default - Unexpected error
+*/
+/**
 * This function comment is parsed by doctrine
 * @route GET /match/{match_id}
 * @group Matches - Operations about user

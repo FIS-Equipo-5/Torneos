@@ -110,20 +110,30 @@ module.exports.updateMatch = async function (request, response) {
 
 };
 
-module.exports.updateMatchStats = function (request, response) {
-};
+// module.exports.updateMatchStats = function (request, response) {
+// };
 
-module.exports.deleteMatchById = function (request, response) {
+//DELETE
+module.exports.deleteMatchById = async function (request, response) {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(request.params.id)) {
+            response.status(404);
+            response.json({ message: "Not Found" });
+            return
+        }
+        let result = await Match.deleteOne({ _id: request.params.id });
+        if (result.n == 0) {
+            response.status(404);
+            response.json({ message: "Not Found" });
+            return
+        }
+        response.status(200);
+        response.json({ message: "Deleted" });
+        return
+    } catch (error) {
+        logger.error(error);
+        response.status(500);
+        response.json({ message: "Internal Error" });
+        return
+    }
 };
-
-module.exports.deleteAllMatchesByTournamentId = function (request, response) {
-};
-
-function checkMatch(match) {
-    // Una transferencia es válida si contiene todos sus atributos
-    // return transfer.destiny_team_id!=null 
-    //     && transfer.origin_team_id!=null 
-    //     && transfer.transfer_date!=null 
-    //     && transfer.cost!=null 
-    //     && transfer.player_id!=null;
-}
