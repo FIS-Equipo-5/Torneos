@@ -139,22 +139,24 @@ let _initialize = async (req, res) => {
     let teams = []
     for (let team of req.body) {
         try {
-        let teaminfo = await request(config.team_url+'/api/v1/teams/team/' + team)
-        teaminfo=JSON.parse(teaminfo)
-        let teamTosave = {points:0,
-            team_id:teaminfo.team_id,
-            name: teaminfo.name,
-            W:0,
-            D:0,
-            L:0}
-        teams.push(teamTosave)
+            let teaminfo = await request(config.team_url + '/api/v1/teams/team/' + team)
+            teaminfo = JSON.parse(teaminfo)
+            let teamTosave = {
+                points: 0,
+                team_id: teaminfo.team_id,
+                name: teaminfo.name,
+                W: 0,
+                D: 0,
+                L: 0
+            }
+            teams.push(teamTosave)
         } catch {
             continue
         }
 
     }
     //GENERATE MATCHES
-    await Tournament.updateOne({ _id: req.params.id }, {clasification:teams});
+    await Tournament.updateOne({ _id: req.params.id }, { clasification: teams });
     res.json({ message: "Initialized" });
 
 }
