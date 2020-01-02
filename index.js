@@ -52,8 +52,8 @@ mongoose.connect(dbConfig.url, {
                     title: 'Tournaments API',
                     version: '1.0.0',
                 },
-                host: 'localhost:3000',
-                basePath: '/v1',
+                host: dbConfig.host,
+                basePath: global.BASE_API_PATH ,
                 produces: [
                     "application/json",
                     "application/xml"

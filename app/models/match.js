@@ -13,7 +13,15 @@ const matchSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    visitorTeamName:{
+        type: String,
+        required: true
+    },
     localTeamUuid: {
+        type: String,
+        required: true
+    },
+    localTeamName:{
         type: String,
         required: true
     },

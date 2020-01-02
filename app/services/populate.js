@@ -21,7 +21,9 @@ module.exports.populate = async function () {
         location: 'sevilla',
         tournamentUuid: '1',
         visitorTeamUuid: '1',
+        visitorTeamName: 'Madrid',
         localTeamUuid: '2',
+        localTeamName: 'Sevilla',
         matchDate: moment('2019-12-26 13:00:00'),
         stats: {
             localScore: 3,
@@ -50,7 +52,9 @@ module.exports.populate = async function () {
         location: 'sevilla',
         tournamentUuid: '1',
         visitorTeamUuid: '2',
+        visitorTeamName: 'Madrid',
         localTeamUuid: '1',
+        localTeamName: 'Sevilla',
         matchDate: moment('2019-12-29 13:00:00'),
         stats: {}
     });
@@ -61,7 +65,9 @@ module.exports.populate = async function () {
         location: 'madrid',
         tournamentUuid: '2',
         visitorTeamUuid: '20',
+        visitorTeamName: 'Madrid',
         localTeamUuid: '10',
+        localTeamName: 'Sevilla',
         matchDate: moment('2020-01-01 13:00:00'),
         stats: {}
     });

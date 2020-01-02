@@ -7,7 +7,116 @@ const moment = require('moment');
 
 
 
+module.exports.generateMatches = async function (tournamentId, teams) {
+    // teams = [
+    //     {
+    //         "team_id": 541,
+    //         "name": "Real Madrid",
+    //         "code": 123,
+    //         "logo": "https://media.api-football.com/teams/541.png",
+    //         "country": "Spain",
+    //         "founded": 1902,
+    //         "venue_name": "Estadio Santiago Bernabéu",
+    //         "venue_surface": "grass",
+    //         "venue_address": "Avenida de Concha Espina 1, Chamartín",
+    //         "venue_city": "Madrid",
+    //         "venue_capacity": 85454,
+    //         "budget": 14423432,
+    //         "value": 9999999999999999999
+    //     },
+    //     {
+    //         "team_id": 542,
+    //         "name": "Barca",
+    //         "code": 123,
+    //         "logo": "https://media.api-football.com/teams/541.png",
+    //         "country": "Spain",
+    //         "founded": 1902,
+    //         "venue_name": "camp nou",
+    //         "venue_surface": "grass",
+    //         "venue_address": "Avenida de Concha Espina 1, Chamartín",
+    //         "venue_city": "Barcelona",
+    //         "venue_capacity": 85454,
+    //         "budget": 14423432,
+    //         "value": 9999999999999999999
+    //     },
+    //     {
+    //         "team_id": 543,
+    //         "name": "Betis",
+    //         "code": 123,
+    //         "logo": "https://media.api-football.com/teams/541.png",
+    //         "country": "Spain",
+    //         "founded": 1902,
+    //         "venue_name": "villamarin",
+    //         "venue_surface": "grass",
+    //         "venue_address": "Avenida de Concha Espina 1, Chamartín",
+    //         "venue_city": "Sevilla",
+    //         "venue_capacity": 85454,
+    //         "budget": 14423432,
+    //         "value": 9999999999999999999
+    //     }
+    //     ,
+    //     {
+    //         "team_id": 544,
+    //         "name": "Sevilla",
+    //         "code": 123,
+    //         "logo": "https://media.api-football.com/teams/541.png",
+    //         "country": "Spain",
+    //         "founded": 1902,
+    //         "venue_name": "pizjuan",
+    //         "venue_surface": "grass",
+    //         "venue_address": "Avenida de Concha Espina 1, Chamartín",
+    //         "venue_city": "Sevilla",
+    //         "venue_capacity": 85454,
+    //         "budget": 14423432,
+    //         "value": 9999999999999999999
+    //     }];
+    // tournamentId = 1;
+    try {
+        let matches = []
+        let firstRoundLastMatchDate = new Date();
+        for (i = 0; i < teams.length; i++) {
+            let date = new Date();
+            for (t = i + 1; t < teams.length; t++) {
+                match = new Match({
+                    tournamentUuid: tournamentId,
+                    visitorTeamUuid: teams[t].team_id,
+                    visitorTeamName: teams[t].name,
+                    localTeamUuid: teams[i].team_id,
+                    localTeamName: teams[i].name,
+                    matchDate: new Date(date),
+                    location: teams[i].venue_name
+                });
+                date.setDate(date.getDate() + 7);
+                await match.save();
+                matches.push(match);
+            }
+            if (i == 0) {
+                firstRoundLastMatchDate = date;
+            }
+        }
+        for (i = teams.length - 1; i >= 0; i--) {
+            let date = new Date(firstRoundLastMatchDate);
+            for (t = i - 1; t >= 0; t--) {
+                match = new Match({
+                    tournamentUuid: tournamentId,
+                    visitorTeamUuid: teams[t].team_id,
+                    visitorTeamName: teams[t].name,
+                    localTeamUuid: teams[i].team_id,
+                    localTeamName: teams[i].name,
+                    matchDate: new Date(date),
+                    location: teams[i].venue_name
+                });
+                date.setDate(date.getDate() + 7);
+                await match.save();
+                matches.push(match);
+            }
+        }
+        logger.debug(matches);
+    } catch (error) {
+        log.error(`ERROR: generateMatches - ${error}`);
+    }
 
+}
 
 
 module.exports.insertMatches = async function () {
