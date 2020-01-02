@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const matchSchema = new mongoose.Schema({
-    location:{
+    venue_city: {
         type: String,
         required: true
     },
@@ -13,7 +13,7 @@ const matchSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    visitorTeamName:{
+    visitorTeamName: {
         type: String,
         required: true
     },
@@ -21,7 +21,7 @@ const matchSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    localTeamName:{
+    localTeamName: {
         type: String,
         required: true
     },

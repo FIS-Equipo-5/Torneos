@@ -18,7 +18,7 @@ module.exports.populate = async function () {
 
 
     const match1 = new Match({
-        location: 'sevilla',
+        venue_city: 'sevilla',
         tournamentUuid: '1',
         visitorTeamUuid: '1',
         visitorTeamName: 'Madrid',
@@ -49,7 +49,7 @@ module.exports.populate = async function () {
     await match1.save().catch((error) => logger.warn("Dummy match already created"));
 
     const match2 = new Match({
-        location: 'sevilla',
+        venue_city: 'sevilla',
         tournamentUuid: '1',
         visitorTeamUuid: '2',
         visitorTeamName: 'Madrid',
@@ -62,7 +62,7 @@ module.exports.populate = async function () {
     await match2.save().catch((error) => logger.warn("Dummy match already created"));
 
     const match3 = new Match({
-        location: 'madrid',
+        venue_city: 'madrid',
         tournamentUuid: '2',
         visitorTeamUuid: '20',
         visitorTeamName: 'Madrid',
