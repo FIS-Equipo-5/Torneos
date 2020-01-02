@@ -148,7 +148,7 @@ let _initialize = async (req, res) => {
                 W: 0,
                 D: 0,
                 L: 0,
-                venue_name: teaminfo.venue_name
+                venue_city: teaminfo.venue_city
             }
             teams.push(teamTosave)
         } catch {

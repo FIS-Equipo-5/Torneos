@@ -84,7 +84,7 @@ module.exports.generateMatches = async function (tournamentId, teams) {
                     localTeamUuid: teams[i].team_id,
                     localTeamName: teams[i].name,
                     matchDate: new Date(date),
-                    location: teams[i].venue_name
+                    venue_city: teams[i].venue_city
                 });
                 date.setDate(date.getDate() + 7);
                 await match.save();
@@ -104,7 +104,7 @@ module.exports.generateMatches = async function (tournamentId, teams) {
                     localTeamUuid: teams[i].team_id,
                     localTeamName: teams[i].name,
                     matchDate: new Date(date),
-                    location: teams[i].venue_name
+                    venue_city: teams[i].venue_city
                 });
                 date.setDate(date.getDate() + 7);
                 await match.save();
@@ -230,25 +230,32 @@ module.exports.deleteAllByTournament = async function (tournamentId) {
 }
 
 module.exports.getWeather = async function (match) {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?q=${match.location}&appid=${dbConfig.weatherApiKey}&units=metric`
-    let result;
-    logger.debug(`Getting ${match.matchDate} weather in ${match.location} from openweathermap`);
-    await req(url, function (err, response, body) {
-        if (err) {
-            logger.error(`Error retriving weather info: ${error}`);
-        } else {
-            let weather = JSON.parse(body);
-            let weatherFiltered = weather.list.filter(day => {
-                let matchDate = moment(match.matchDate).format('YYYY-MM-DD');
-                return day.dt_txt.includes(matchDate);
-            });
-            if (Array.isArray(weatherFiltered) && weatherFiltered.length) {
-                result = weatherFiltered;
+    try {
+        const url = `http://api.openweathermap.org/data/2.5/forecast?q=${match.venue_city}&appid=${dbConfig.weatherApiKey}&units=metric`
+        let result;
+        logger.debug(`Getting ${match.matchDate} weather in ${match.venue_city} from openweathermap`);
+        await req(url, function (err, response, body) {
+            if (err) {
+                logger.error(`Error retriving weather info: ${error}`);
             } else {
-                result = 'no weather data';
+                let weather = JSON.parse(body);
+                let weatherFiltered = weather.list ? weather.list.filter(day => {
+                    let matchDate = moment(match.matchDate).format('YYYY-MM-DD');
+                    return day.dt_txt.includes(matchDate);
+                }) : [];
+                if (Array.isArray(weatherFiltered) && weatherFiltered.length) {
+                    result = weatherFiltered;
+                } else {
+                    result = 'no weather data';
+                }
             }
-        }
-    });
-    logger.debug("Retrieved weather");
-    return result;
+        });
+        logger.debug("Retrieved weather");
+        return result;
+    } catch{
+        logger.error(`ERROR: GET /weather , Some error occurred while retrieving ${match.venue_city} weather`)
+        response.status(500).send({
+            message: err.message || "Some error occurred while retrieving matches."
+        });
+    }
 }
