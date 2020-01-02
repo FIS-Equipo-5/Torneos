@@ -1,5 +1,7 @@
 const Tournament = require('../models/tournament');
 const logger = require('../utils/logger');
+const request = require('request-promise');
+const config = require('../../conf/dbConfig');
 let mongoose = require('mongoose');
 
 let _getAllTournaments = async (req, res) => {
@@ -101,12 +103,12 @@ let _deleteTournamentById = async (req, res) => {
         }
         res.status(200);
         res.json({ message: "Deleted" });
-        return
+        return;
     } catch (error) {
         logger.error(error);
         res.status(500);
         res.json({ message: "Internal Error" });
-        return
+        return;
 
     }
 };
@@ -116,9 +118,47 @@ let _deleteTournamentById = async (req, res) => {
 let checkBody = (body) => {
     if (body.name && body.startDate && body.endDate && body.clasification && body.type
         && (body.type == "clasification" || body.type == "playoff")) {
-        return true
+        return true;
     }
-    return false
+    return false;
+}
+
+
+let _initialize = async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        res.status(404);
+        res.json({ message: "Not Found" });
+        return
+    }
+    let tournament = await Tournament.findById({ _id: req.params.id }, req.body);
+    if (!tournament) {
+        res.status(404);
+        res.json({ message: "Not Found" });
+        return
+    }
+    let teams = []
+    for (let team of req.body) {
+        try {
+            let teaminfo = await request(config.team_url + '/api/v1/teams/team/' + team)
+            teaminfo = JSON.parse(teaminfo)
+            let teamTosave = {
+                points: 0,
+                team_id: teaminfo.team_id,
+                name: teaminfo.name,
+                W: 0,
+                D: 0,
+                L: 0
+            }
+            teams.push(teamTosave)
+        } catch {
+            continue
+        }
+
+    }
+    //GENERATE MATCHES
+    await Tournament.updateOne({ _id: req.params.id }, { clasification: teams });
+    res.json({ message: "Initialized" });
+
 }
 
 
@@ -127,6 +167,7 @@ module.exports = {
     getTournamentById: _getTournamentById,
     postTournament: _postTournament,
     putTournamentById: _putTournamentById,
+    initialize: _initialize,
     deleteTournamentById: _deleteTournamentById
 
 }
