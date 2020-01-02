@@ -1,10 +1,12 @@
 const chai = require("chai");
+const nock = require("nock");
+const config = require('../../conf/dbConfig');
 const { expect } = chai;
 let app = require("../../index");
 const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
 let idTournament
 
-
+chai.use(require('chai-nock'));
 chai.use(require("chai-http"));
 chai.use(require('chai-like'));
 chai.use(require('chai-things'));
@@ -21,7 +23,7 @@ describe("GET methods", () => {
             .get(BASE_API_PATH + '/tournaments')
             .end((err, res) => {
                 expect(res).to.have.status(200);
-                expect(res.body).to.contain.something.like(bodyexpeted)
+                expect(res.body).to.contain.something.like(bodyexpeted);
                 idTournament = res.body[0]["_id"]
                 done();
             });
@@ -196,6 +198,58 @@ describe("PUT methods", () => {
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(404);
+                done();
+            });
+    });
+
+    it('PUT Initialized', (done) => {
+        const responseThird = {
+            team_id: 111,
+            name: "Equipo",
+            code: "773",
+            logo: "https://media.api-football.com/teams/541.png",
+            country: "Spain",
+            founded: 1909,
+            venue_name: "Estadio Benito Villamarín",
+            venue_surface: "polvoraaa",
+            venue_address: "Avenida de Concha Espina 1, Chamartín",
+            venue_city: "Sevilla",
+            venue_capacity: 85454,
+            budget: 14423432,
+            value: 9999999999
+        }
+        nock(config.team_url)
+            .get('/api/v1/teams/team/111')
+            .reply(200,responseThird);
+        let bodyInsert = [111]
+
+        chai
+            .request(app)
+            .put(BASE_API_PATH + '/tournament/initialize/'+ idTournament)
+            .send(bodyInsert)
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
+
+    });
+
+
+    it("GET Tournament after PUT initialize", done => {
+        let bodyExpected =         {
+            points: 0,
+            team_id: "111",
+            name: "Equipo",
+            W: 0,
+            D: 0,
+            L: 0
+        }
+        chai
+            .request(app)
+            .get(BASE_API_PATH + '/tournament/'+ idTournament)
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body.clasification).to.contain.something.like(bodyExpected);
                 done();
             });
     });
