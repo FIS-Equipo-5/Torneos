@@ -113,7 +113,7 @@ module.exports.generateMatches = async function (tournamentId, teams) {
         }
         logger.debug(matches);
     } catch (error) {
-        log.error(`ERROR: generateMatches - ${error}`);
+        logger.error(`ERROR: generateMatches - ${error}`);
     }
 
 }

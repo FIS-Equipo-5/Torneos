@@ -147,7 +147,8 @@ let _initialize = async (req, res) => {
                 name: teaminfo.name,
                 W: 0,
                 D: 0,
-                L: 0
+                L: 0,
+                venue_name: teaminfo.venue_name
             }
             teams.push(teamTosave)
         } catch {
@@ -155,7 +156,7 @@ let _initialize = async (req, res) => {
         }
 
     }
-    //GENERATE MATCHES
+    require('../services/matchService').generateMatches(req.params.id, teams);
     await Tournament.updateOne({ _id: req.params.id }, { clasification: teams });
     res.json({ message: "Initialized" });
 
