@@ -44,9 +44,19 @@ describe("MATCHES: GET methods", () => {
                 "weather": [{}]
             }]
     };
-    let findStub = sinon.stub(mongoose.Model, 'find').returns(mockedMatchesList);
+
+    let sandbox;
+    beforeEach(function () {
+        sandbox = sinon.createSandbox();
+    });
+
+    afterEach(function () {
+        sandbox.restore();
+    });
+
 
     it('should return all the matches', done => {
+        sandbox.stub(mongoose.Model, 'find').returns(mockedMatchesList);
 
         let expected = {
             visitorTeamUuid: "1",
@@ -68,7 +78,7 @@ describe("MATCHES: GET methods", () => {
     });
 
     it('should return one match', done => {
-        let mockedMatchesList = {
+        let mockedMatch = {
             lean: () => ({
                 "stats": {
                     "goals": [],
@@ -94,7 +104,7 @@ describe("MATCHES: GET methods", () => {
             venue_city: "Madrid",
         };
 
-        sinon.stub(mongoose.Model, 'findById').returns(mockedMatchesList);
+        sandbox.stub(mongoose.Model, 'findById').returns(mockedMatch);
 
         chai
             .request(app)
@@ -109,6 +119,7 @@ describe("MATCHES: GET methods", () => {
 
     it('should return matches by tournament', done => {
 
+        sandbox.stub(mongoose.Model, 'find').returns(mockedMatchesList);
         let expected = {
             visitorTeamUuid: "1",
             visitorTeamName: "Madrid",
@@ -127,12 +138,10 @@ describe("MATCHES: GET methods", () => {
                 done();
             });
 
-        // sinon.assert.calledWith(matchStub, expectedUser);
     });
 
     it('should return not found tournament', done => {
-
-        findStub.returns(
+        sandbox.stub(mongoose.Model, 'find').returns(
             {
                 lean: () => []
             });
