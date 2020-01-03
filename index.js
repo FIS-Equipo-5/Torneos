@@ -5,6 +5,8 @@ const dbConfig = require('./conf/dbConfig.js');
 const { httpLogger } = require('./app/utils');
 const { logger } = require('./app/utils');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+
 
 
 global.BASE_API_PATH = "/api/v1"
@@ -14,9 +16,24 @@ console.log('Setting up API server');
 var app = express();
 app.use(bodyParser.json());
 
+app.set('secretKey', 'authServiceApi'); // jwt secret token
+//jwt token is checked for all our routes
+app.use('/', validateUser);
+
+//Function that validates jwt token
+function validateUser(req, res, next) {
+    jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
+        if (err) {
+            res.json({ status: "error", message: err.message, data: null });
+        } else {
+            // add user id to request
+            req.body.userId = decoded.id;
+            next();
+        }
+    });
+}
 
 app.use(httpLogger);
-app.get('/', (req, res) => res.send('<html><body><h1>Welcome to Tournaments microservice!</h1></body></html>'));
 
 // Require routes routes
 require('./app/router/')(app);
@@ -53,7 +70,7 @@ mongoose.connect(dbConfig.url, {
                     version: '1.0.0',
                 },
                 host: dbConfig.host,
-                basePath: global.BASE_API_PATH ,
+                basePath: global.BASE_API_PATH,
                 produces: [
                     "application/json",
                     "application/xml"

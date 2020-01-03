@@ -9,6 +9,8 @@ chai.use(require("chai-http"));
 chai.use(require('chai-like'));
 chai.use(require('chai-things'));
 
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8'
+
 describe("MATCHES: GET methods", () => {
 
     let mockedMatchesList = {
@@ -69,6 +71,7 @@ describe("MATCHES: GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/matches')
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.contain.something.like(expected);
@@ -109,6 +112,7 @@ describe("MATCHES: GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/match/1')
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.have.property('visitorTeamName');
@@ -131,6 +135,7 @@ describe("MATCHES: GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/matches/1')
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.contain.something.like(expected);
@@ -148,6 +153,7 @@ describe("MATCHES: GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/matches/3')
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(404);
                 done();
