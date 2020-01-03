@@ -252,7 +252,7 @@ module.exports.getWeather = async function (match) {
         });
         logger.debug("Retrieved weather");
         return result;
-    } catch{
+    } catch (err) {
         logger.error(`ERROR: GET /weather , Some error occurred while retrieving ${match.venue_city} weather`)
         response.status(500).send({
             message: err.message || "Some error occurred while retrieving matches."

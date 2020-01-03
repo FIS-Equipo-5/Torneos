@@ -8,49 +8,72 @@ const matchService = require('../services/matchService')
 
 
 //GET
-module.exports.getAllMatches = function (request, response) {
+// module.exports.getAllMatches = function (request, response) {
 
-    Match.find().lean().then(async (matches) => {
+//     Match.find().lean().then(async (matches) => {
+
+//         for (let match of matches) {
+//             let weather = await matchService.getWeather(match);
+//             match.weather = weather;
+//         }
+//         response.send(matches);
+//     }).catch(err => {
+//         logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")
+//         response.status(500).send({
+//             message: err.message || "Some error occurred while retrieving matches."
+//         });
+//     });
+// };
+
+module.exports.getAllMatches = async function (request, response) {
+
+    try {
+        let matches = await Match.find().lean();
+        console.log("getAllMatches "+ matches);
 
         for (let match of matches) {
             let weather = await matchService.getWeather(match);
             match.weather = weather;
         }
         response.send(matches);
-    }).catch(err => {
+
+    } catch (err) {
         logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")
         response.status(500).send({
             message: err.message || "Some error occurred while retrieving matches."
         });
-    });
+    };
 };
 
-module.exports.getMatchById = function (request, response) {
+module.exports.getMatchById = async function (request, response) {
+    try {
+        let match = await Match.findById(request.params.match_id).lean()
 
-    Match.findById(request.params.match_id).lean()
-        .then(async (match) => {
-            if (!match) {
-                logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
-                return response.status(404).send({
-                    message: "Match not found with id " + request.params.match_id
-                });
-            }
-            logger.info(`SUCCESS: -GET /match/${request.params.match_id}`)
-            let weather = await matchService.getWeather(match);
-            match.weather = weather;
-            response.send(match);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                logger.error(` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
-                return response.status(404).send({
-                    message: "Match not found with id " + request.params.match_id
-                });
-            }
-            log.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
-            return response.status(500).send({
-                message: "Error retrieving match with id " + request.params.match_id
+        if (!match) {
+            logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
+            return response.status(404).send({
+                message: "Match not found with id " + request.params.match_id
             });
+        }
+        logger.info(match.visitorTeamName + ' '+ match.localTeamName);
+        let weather = await matchService.getWeather(match);
+        match.weather = weather;
+        logger.info(`SUCCESS: -GET /match/${request.params.match_id}`)
+
+        response.send(match);
+
+    } catch (err) {
+        if (err.kind === 'ObjectId') {
+            logger.error(` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
+            return response.status(404).send({
+                message: "Match not found with id " + request.params.match_id
+            });
+        }
+        logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
+        return response.status(500).send({
+            message: "Error retrieving match with id " + request.params.match_id
         });
+    }
 
 };
 
