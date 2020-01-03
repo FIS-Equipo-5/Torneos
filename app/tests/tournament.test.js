@@ -11,6 +11,8 @@ chai.use(require("chai-http"));
 chai.use(require('chai-like'));
 chai.use(require('chai-things'));
 
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8'
+
 describe("GET methods", () => {
     let idTournament;
     it("Get Tournaments", done => {
@@ -21,6 +23,7 @@ describe("GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/tournaments')
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.contain.something.like(bodyexpeted);
@@ -33,6 +36,7 @@ describe("GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/tournament/' + idTournament)
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.have.property('_id').to.be.equal(idTournament);
@@ -50,6 +54,7 @@ describe("GET methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/tournament/1234' + idTournament)
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(404);
                 done();
@@ -74,6 +79,7 @@ describe("POST methods", () => {
         chai
             .request(app)
             .post(BASE_API_PATH + '/tournament')
+            .set('x-access-token', token)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(201);
@@ -93,6 +99,7 @@ describe("POST methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/tournament/' + idTournament)
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 //expect(res.body.name).to.equal(bodyInsert.name);
@@ -117,6 +124,7 @@ describe("POST methods", () => {
         chai
             .request(app)
             .post(BASE_API_PATH + '/tournament')
+            .set('x-access-token', token)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(400);
@@ -139,6 +147,7 @@ describe("PUT methods", () => {
         chai
             .request(app)
             .put(BASE_API_PATH + '/tournament/' + idTournament)
+            .set('x-access-token', token)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(200);
@@ -176,6 +185,7 @@ describe("PUT methods", () => {
         chai
             .request(app)
             .put(BASE_API_PATH + '/tournament/' + idTournament)
+            .set('x-access-token', token)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(400);
@@ -195,6 +205,7 @@ describe("PUT methods", () => {
         chai
             .request(app)
             .put(BASE_API_PATH + '/tournament/1nshsb')
+            .set('x-access-token', token)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(404);
@@ -226,6 +237,7 @@ describe("PUT methods", () => {
         chai
             .request(app)
             .put(BASE_API_PATH + '/tournament/initialize/'+ idTournament)
+            .set('x-access-token', token)
             .send(bodyInsert)
             .end((err, res) => {
                 expect(res).to.have.status(200);
@@ -247,6 +259,7 @@ describe("PUT methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/tournament/'+ idTournament)
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body.clasification).to.contain.something.like(bodyExpected);
@@ -263,6 +276,7 @@ describe("DELETE methods", () => {
         chai
             .request(app)
             .delete(BASE_API_PATH + '/tournament/' + idTournament)
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 //expect(res.body.name).to.equal(bodyInsert.name);
@@ -274,6 +288,7 @@ describe("DELETE methods", () => {
         chai
             .request(app)
             .get(BASE_API_PATH + '/tournament/' + idTournament)
+            .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(404);
                 done();
