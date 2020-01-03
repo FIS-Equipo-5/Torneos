@@ -3,6 +3,8 @@ const logger = require('../utils/logger');
 const request = require('request-promise');
 const config = require('../../conf/dbConfig');
 let mongoose = require('mongoose');
+const { generateMatches } = require('../services/matchService');
+
 
 let _getAllTournaments = async (req, res) => {
     let tournaments = await Tournament.find()
@@ -156,7 +158,7 @@ let _initialize = async (req, res) => {
         }
 
     }
-    require('../services/matchService').generateMatches(req.params.id, teams);
+    await generateMatches(req.params.id, teams);
     await Tournament.updateOne({ _id: req.params.id }, { clasification: teams });
     res.json({ message: "Initialized" });
 
