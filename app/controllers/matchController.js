@@ -8,74 +8,83 @@ const matchService = require('../services/matchService')
 
 
 //GET
-module.exports.getAllMatches = function (request, response) {
+module.exports.getAllMatches = async function (request, response) {
 
-    Match.find().lean().then(async (matches) => {
+    try {
+        let matches = await Match.find().lean();
 
         for (let match of matches) {
             let weather = await matchService.getWeather(match);
             match.weather = weather;
         }
         response.send(matches);
-    }).catch(err => {
+
+    } catch (err) {
         logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")
         response.status(500).send({
             message: err.message || "Some error occurred while retrieving matches."
         });
-    });
+    };
 };
 
-module.exports.getMatchById = function (request, response) {
+module.exports.getMatchById = async function (request, response) {
+    try {
+        let match = await Match.findById(request.params.match_id).lean()
 
-    Match.findById(request.params.match_id).lean()
-        .then(async (match) => {
-            if (!match) {
-                logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
-                return response.status(404).send({
-                    message: "Match not found with id " + request.params.match_id
-                });
-            }
-            logger.info(`SUCCESS: -GET /match/${request.params.match_id}`)
+        if (!match) {
+            logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`);
+            return response.status(404).send({
+                message: "Match not found with id " + request.params.match_id
+            });
+        }
+        logger.info(match.visitorTeamName + ' ' + match.localTeamName);
+        let weather = await matchService.getWeather(match);
+        match.weather = weather;
+        logger.info(`SUCCESS: -GET /match/${request.params.match_id}`)
+
+        response.send(match);
+
+    } catch (err) {
+        if (err.kind === 'ObjectId') {
+            logger.error(` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
+            return response.status(404).send({
+                message: "Match not found with id " + request.params.match_id
+            });
+        }
+        logger.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
+        return response.status(500).send({
+            message: "Error retrieving match with id " + request.params.match_id
+        });
+    }
+
+};
+
+module.exports.getMatchByTournamentId = async function (request, response) {
+    try {
+
+        let matches = await Match.find({ tournamentUuid: request.params.tournament_id }).lean();
+        for (let match of matches) {
             let weather = await matchService.getWeather(match);
             match.weather = weather;
-            response.send(match);
-        }).catch(err => {
-            if (err.kind === 'ObjectId') {
-                logger.error(` ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
-                return response.status(404).send({
-                    message: "Match not found with id " + request.params.match_id
-                });
-            }
-            log.error(`ERROR: -GET /match/${request.params.match_id} - Not found match with id: ${request.params.match_id}`)
-            return response.status(500).send({
-                message: "Error retrieving match with id " + request.params.match_id
+        }
+        if(!matches.length){
+            return response.status(404).send({
+                message: "tournament not found with id " + request.params.tournament_id
+            });    
+        }
+        response.send(matches);
+    } catch (err) {
+        if (err.kind === 'ObjectId') {
+            logger.error(` ERROR: -GET /matches/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)
+            return response.status(404).send({
+                message: "tournament not found with id " + request.params.tournament_id
             });
+        }
+        logger.error(`ERROR: -GET /tournament/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)
+        return response.status(500).send({
+            message: "Error retrieving tournament with id " + request.params.tournament_id
         });
-
-};
-
-module.exports.getMatchByTournamentId = function (request, response) {
-    Match.find({ tournamentUuid: request.params.tournament_id }).lean()
-        .then(async (matches) => {
-
-            for (let match of matches) {
-                let weather = await matchService.getWeather(match);
-                match.weather = weather;
-            }
-            response.send(matches);
-        })
-        .catch(err => {
-            if (err.kind === 'ObjectId') {
-                logger.error(` ERROR: -GET /matches/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)
-                return response.status(404).send({
-                    message: "tournament not found with id " + request.params.tournament_id
-                });
-            }
-            log.error(`ERROR: -GET /tournament/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)
-            return response.status(500).send({
-                message: "Error retrieving tournament with id " + request.params.tournament_id
-            });
-        });
+    }
 }
 
 //PUT
