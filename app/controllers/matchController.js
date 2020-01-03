@@ -11,6 +11,7 @@ const matchService = require('../services/matchService')
 module.exports.getAllMatches = async function (request, response) {
 
     try {
+        let token = request.headers['x-access-token'];
         let matches = await Match.find().lean();
 
         for (let match of matches) {
@@ -29,6 +30,7 @@ module.exports.getAllMatches = async function (request, response) {
 
 module.exports.getMatchById = async function (request, response) {
     try {
+        let token = request.headers['x-access-token'];
         let match = await Match.findById(request.params.match_id).lean()
 
         if (!match) {
@@ -61,16 +63,16 @@ module.exports.getMatchById = async function (request, response) {
 
 module.exports.getMatchByTournamentId = async function (request, response) {
     try {
-
+        let token = request.headers['x-access-token'];
         let matches = await Match.find({ tournamentUuid: request.params.tournament_id }).lean();
         for (let match of matches) {
             let weather = await matchService.getWeather(match);
             match.weather = weather;
         }
-        if(!matches.length){
+        if (!matches.length) {
             return response.status(404).send({
                 message: "tournament not found with id " + request.params.tournament_id
-            });    
+            });
         }
         response.send(matches);
     } catch (err) {
@@ -90,6 +92,7 @@ module.exports.getMatchByTournamentId = async function (request, response) {
 //PUT
 module.exports.updateMatch = async function (request, response) {
     try {
+        let token = request.headers['x-access-token'];
         if (!mongoose.Types.ObjectId.isValid(request.params.match_id)) {
             response.status(404);
             response.json({ message: "Not Found" });
@@ -125,6 +128,7 @@ module.exports.updateMatch = async function (request, response) {
 //DELETE
 module.exports.deleteMatchById = async function (request, response) {
     try {
+        let token = request.headers['x-access-token'];
         if (!mongoose.Types.ObjectId.isValid(request.params.id)) {
             response.status(404);
             response.json({ message: "Not Found" });

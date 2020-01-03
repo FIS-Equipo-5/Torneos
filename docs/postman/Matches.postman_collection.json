@@ -6,12 +6,157 @@
 	},
 	"item": [
 		{
+			"name": "POST register ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"andres\",\n\t\"email\": \"andres@mail.com\",\n\t\"password\" : \"password\" \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-gr5-auth.herokuapp.com/api/v1/users/register",
+					"protocol": "https",
+					"host": [
+						"fis-gr5-auth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST autenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"andres@mail.com\",\n\t\"password\" : \"password\" \n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-gr5-auth.herokuapp.com/api/v1/users/authenticate",
+					"protocol": "https",
+					"host": [
+						"fis-gr5-auth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Root",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET MATCHES",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": ""
+					"raw": "localhost:3000/api/v1/matches",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"matches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET MATCHES by TOURNAMENT",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NTAwOCwiZXhwIjoxNTc4MDU4NjA4fQ.xRBB5iMfaUFPizcxF2YZ3FoTcvW8aIzoEOU726f_po4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/v1/matches/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"matches",
+						"2"
+					]
 				}
 			},
 			"response": []
@@ -20,10 +165,15 @@
 			"name": "GET MATCH",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/api/v1/match/5e00df111c7d27168cc96af5",
-					"protocol": "http",
+					"raw": "localhost:3000/api/v1/match/5e09cf64b22e120b3c6a84f3?=",
 					"host": [
 						"localhost"
 					],
@@ -32,7 +182,13 @@
 						"api",
 						"v1",
 						"match",
-						"5e00df111c7d27168cc96af5"
+						"5e09cf64b22e120b3c6a84f3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -48,11 +204,16 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"stats\": {\r\n        \"localScore\": 3,\r\n        \"visitorScore\": 1,\r\n        \"goals\": [\r\n            {\r\n                \"_id\": \"5e00df111c7d27168cc96af7\",\r\n                \"player\": \"Joaquin\",\r\n                \"type\": \"free-kick\",\r\n                \"time\": \"15\"\r\n            },\r\n            {\r\n                \"_id\": \"5e00df111c7d27168cc96af6\",\r\n                \"player\": \"Joaquin\",\r\n                \"type\": \"penalty-kick\",\r\n                \"time\": \"90\"\r\n            }\r\n        ],\r\n        \"cards\": [\r\n            {\r\n                \"_id\": \"5e00df111c7d27168cc96af8\",\r\n                \"player\": \"Assunçao\",\r\n                \"type\": \"Yellow\",\r\n                \"time\": \"22\"\r\n            }\r\n        ]\r\n    },\r\n    \"_id\": \"5e00df111c7d27168cc96af5\",\r\n    \"tournamentUuid\": \"1\",\r\n    \"visitorTeamUuid\": \"1\",\r\n    \"localTeamUuid\": \"2\",\r\n    \"matchDate\": \"2019-12-23T15:36:49.120Z\",\r\n    \"__v\": 0\r\n}",
+					"raw": "{\r\n    \"stats\": {\r\n        \"localScore\": 1,\r\n        \"visitorScore\": 1,\r\n        \"goals\": [\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1b\",\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"free-kick\",\r\n                \"time\": \"15\"\r\n            },\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1a\",\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"penalty-kick\",\r\n                \"time\": \"90\"\r\n            }\r\n        ],\r\n        \"cards\": [\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1c\",\r\n                \"player\": \"Assunçao\",\r\n                \"type\": \"Yellow\",\r\n                \"time\": \"22\"\r\n            }\r\n        ]\r\n    },\r\n    \"_id\": \"5e02566a280af5000f6aea19\",\r\n    \"tournamentUuid\": \"1\",\r\n    \"visitorTeamUuid\": \"1\",\r\n    \"localTeamUuid\": \"2\",\r\n    \"matchDate\": \"2019-12-24T18:18:18.775Z\",\r\n    \"__v\": 0\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -60,8 +221,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/v1/match/",
-					"protocol": "http",
+					"raw": "localhost:3000/api/v1/match/5e02566a280af5000f6aea19",
 					"host": [
 						"localhost"
 					],
@@ -70,7 +230,34 @@
 						"api",
 						"v1",
 						"match",
-						""
+						"5e02566a280af5000f6aea19"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Match",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/api/v1/match/5e0f358c9433d05614c53392",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"match",
+						"5e0f358c9433d05614c53392"
 					]
 				}
 			},
