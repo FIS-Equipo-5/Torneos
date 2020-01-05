@@ -17,11 +17,15 @@ var app = express();
 app.use(bodyParser.json());
 
 app.set('secretKey', 'authServiceApi'); // jwt secret token
-//jwt token is checked for all our routes
-app.use('/', validateUser);
+
 
 //Function that validates jwt token
-function validateUser(req, res, next) {
+let validateUser = (req, res, next) => {
+    //console.log(req.path)
+    if (req.path.includes('api-docs')){
+        next();
+        return
+    }
     jwt.verify(req.headers['x-access-token'], req.app.get('secretKey'), function (err, decoded) {
         if (err) {
             res.json({ status: "error", message: err.message, data: null });
@@ -32,7 +36,8 @@ function validateUser(req, res, next) {
         }
     });
 }
-
+//jwt token is checked for all our routes
+app.use('/', validateUser);
 app.use(httpLogger);
 
 // Require routes routes
@@ -75,15 +80,15 @@ mongoose.connect(dbConfig.url, {
                     "application/json",
                     "application/xml"
                 ],
-                schemes: ['http'],
-                // securityDefinitions: {
-                //     JWT: {
-                //         type: 'apiKey',
-                //         in: 'header',
-                //         name: 'Authorization',
-                //         description: "",
-                //     }
-                // }
+                schemes: ['http','https'],
+                securityDefinitions: {
+                    JWT: {
+                        type: 'apiKey',
+                        in: 'header',
+                        name: 'x-access-token',
+                        description: "",
+                    }
+                }
             },
             basedir: __dirname, //app absolute path
             files: ['./docs/swagger/*.js'] //Path to the API handle folder

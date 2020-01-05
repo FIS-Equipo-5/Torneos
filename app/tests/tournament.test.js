@@ -11,9 +11,27 @@ chai.use(require("chai-http"));
 chai.use(require('chai-like'));
 chai.use(require('chai-things'));
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODIyMjQ1MiwiZXhwIjoxNTc4MjI2MDUyfQ.4SRXbjHL8w93HiHuRr0hNg9MNC2VF_oy7i7UYhWyXMo'
+let token;
+
 
 describe("GET methods", () => {
+    before((done) => {
+        let data = {
+            name: "test",
+            email: "test@alumn.us.es",
+            password: "tester1"
+        }
+        chai
+        .request("https://fis-gr5-auth.herokuapp.com")
+        .post("/api/v1/users/authenticate")
+        .send(data)
+        .end((err, res) => {
+            token = res.body.data.token
+            done();
+        });
+    })
+
+
     let idTournament;
     it("Get Tournaments", done => {
         let bodyexpeted = {
