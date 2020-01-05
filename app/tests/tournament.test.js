@@ -11,7 +11,7 @@ chai.use(require("chai-http"));
 chai.use(require('chai-like'));
 chai.use(require('chai-things'));
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODIyMjQ1MiwiZXhwIjoxNTc4MjI2MDUyfQ.4SRXbjHL8w93HiHuRr0hNg9MNC2VF_oy7i7UYhWyXMo'
 
 describe("GET methods", () => {
     let idTournament;
