@@ -4,14 +4,72 @@
  * @property {string} type.required - tournament id
  * @property {string} endDate.required - visitior team id
  * @property {string} startDate.required - local team id
- * @property {array} clasification.required - match date
+ * @property {array.<object>} clasification.required - match date
  */
 /**
- * This function comment is parsed by doctrine
  * @route GET /tournaments
  * @group Tournaments - Operations about user
- * @headers {string} 200.X-Expires-After - 	date in UTC when token expires
- * @returns {object} 200 - An array of user info
+ * @returns {Array.<Tournament>} 200 - An array of Tournaments info
  * @security JWT
- * @returns {Error}  default - Unexpected error
  */
+
+ /**
+ * @route GET /tournament/{tournament_id}
+ * @group Tournaments - Operations about user
+ * @param {string} tournament_id.path.required
+ * @returns {Tournament.model} 200 - Tournament info
+ * @security JWT
+ * @returns {Error}  404 - Not Found
+ * @returns {Error}  500 - Internal Error
+ */
+
+
+
+  /**
+ * This function comment is parsed by doctrine
+ * @route POST /tournament/
+ * @group Tournaments - Operations about user
+ * @param {Tournament.model} tournament.body.required
+ * @returns {Tournament.model} 201 - Tournament created info
+ * @security JWT
+ * @returns {Error}  404 - Not Found
+ * @returns {Error}  409 - Conflict
+ * @returns {Error}  400 - Bad Request
+ * @returns {Error}  500 - Internal Error
+ */
+
+  /**
+ * @route PUT /tournament/{tournament_id}
+ * @group Tournaments - Operations about user
+ * @param {string} tournament_id.path.required
+ * @param {Tournament.model} tournament.body.required
+ * @returns {Tournament.model} 200 - Tournament info
+ * @security JWT
+ * @returns {Error}  404 - Not Found
+ * @returns {Error}  400 - Bad Request
+ * @returns {Error}  500 - Internal Error
+ */
+
+
+/**
+ * @route DELETE /tournament/{tournament_id}
+ * @group Tournaments - Operations about user
+ * @param {string} tournament_id.path.required
+ * @returns {Tournament.model} 200 - Deleted
+ * @security JWT
+ * @returns {Error}  404 - Not Found
+ * @returns {Error}  500 - Internal Error
+ */
+
+/**
+ * @route PUT /tournament/initialize/{tournament_id}
+ * @group Tournaments - Operations about user
+ * @param {string} tournament_id.path.required
+ * @param {array.<integer>} teams_ids.body.required
+ * @returns {Tournament.model} 200 - Deleted
+ * @security JWT
+ * @returns {Error}  404 - Not Found
+ * @returns {Error}  500 - Internal Error
+ */
+
+

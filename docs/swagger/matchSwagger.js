@@ -45,7 +45,7 @@
 * This function retrieve a complete list of matches
 * @route GET /matches/{tournament_id}
 * @group Matches - Operations about Match
-* @param {string} tournament_id.required
+* @param {string} tournament_id.path.required
 * @returns {object} 200 - An array with all the matches that belongs to the expecified tournament
 * @returns {Error}  404 - Not Found
 * @returns {Error}  default - Unexpected error
@@ -54,7 +54,7 @@
 * This function comment is parsed by doctrine
 * @route GET /match/{match_id}
 * @group Matches - Operations about user
-* @param {string} match_id.required
+* @param {string} match_id.path.required
 * @returns {object} 200 - the selected match
 * @returns {Error}  default - Unexpected error
 * @returns {Error}  404 - Not Found
@@ -63,7 +63,7 @@
 * This function updates the expecified match
 * @route PUT /match/{match_id}
 * @group Matches - Operations about Match
-* @param {string} match_id.required
+* @param {string} match_id.path.required
 * @returns {object} 200 - match updated
 * @returns {Error}  default - Unexpected error
 */
@@ -71,7 +71,7 @@
 * This function deletes the expecified match
 * @route DELETE /match/{match_id}
 * @group Matches - Operations about Match
-* @param {string} match_id.required
+* @param {string} match_id.path.required
 * @returns {object} 200 - Deleted match
 * @returns {Error}  404 - Not Found
 * @returns {Error}  default - Unexpected error
