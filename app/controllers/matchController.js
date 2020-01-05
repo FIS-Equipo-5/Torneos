@@ -11,13 +11,14 @@ const matchService = require('../services/matchService')
 module.exports.getAllMatches = async function (request, response) {
 
     try {
-        let numperpages = 5 || req.query['limit'];
-        let page = 1 || req.query['page'];
+        let numperpages = parseInt(request.query['limit']) || 5;
+        let page = parseInt(request.query['page']) || 1;
         let token = request.headers['x-access-token'];
         let matches = await Match.find()
             .skip((numperpages * page) - numperpages)
             .limit(numperpages)
             .lean();
+
 
         for (let match of matches) {
             let weather = await matchService.getWeather(match);
@@ -74,8 +75,8 @@ module.exports.getMatchById = async function (request, response) {
 
 module.exports.getMatchByTournamentId = async function (request, response) {
     try {
-        let numperpages = 5 || req.query['limit'];
-        let page = 1 || req.query['page'];
+        let numperpages = parseInt(request.query['limit']) || 5;
+        let page = parseInt(request.query['page']) || 1;
         let token = request.headers['x-access-token'];
         let matches = await Match.find({ tournamentUuid: request.params.tournament_id })
             .skip((numperpages * page) - numperpages)

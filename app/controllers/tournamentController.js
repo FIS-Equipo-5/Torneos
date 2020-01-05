@@ -7,11 +7,11 @@ const { generateMatches } = require('../services/matchService');
 
 
 let _getAllTournaments = async (req, res) => {
-    let numperpages = 5 || req.query['limit'];
-    let page = 1 || req.query['page'];
+    let numperpages = parseInt(req.query['limit']) || 5;
+    let page = parseInt(req.query['page']) || 1;
     let tournaments = await Tournament.find()
-         .skip((numperpages * page) - numperpages)
-         .limit(numperpages);
+        .skip((numperpages * page) - numperpages)
+        .limit(numperpages);
     res.json(tournaments);
 };
 
