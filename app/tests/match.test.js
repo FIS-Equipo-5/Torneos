@@ -70,7 +70,16 @@ describe("MATCHES: GET methods", () => {
 
 
     it('should return all the matches', done => {
-        sandbox.stub(mongoose.Model, 'find').returns(mockedMatchesList);
+  
+        sandbox.stub(mongoose.Model, 'find').returns({
+            skip: sandbox.stub().returnsThis(),
+            limit: sandbox.stub().returnsThis(),
+            lean: mockedMatchesList.lean
+
+          });
+
+
+        //returns(mockedMatchesList);
 
         let expected = {
             visitorTeamUuid: "1",
@@ -135,7 +144,14 @@ describe("MATCHES: GET methods", () => {
 
     it('should return matches by tournament', done => {
 
-        sandbox.stub(mongoose.Model, 'find').returns(mockedMatchesList);
+       
+
+        sandbox.stub(mongoose.Model, 'find').returns({
+            skip: sandbox.stub().returnsThis(),
+            limit: sandbox.stub().returnsThis(),
+            lean: mockedMatchesList.lean
+
+          });
         let expected = {
             visitorTeamUuid: "1",
             visitorTeamName: "Madrid",
@@ -160,6 +176,8 @@ describe("MATCHES: GET methods", () => {
     it('should return not found tournament', done => {
         sandbox.stub(mongoose.Model, 'find').returns(
             {
+                skip: sandbox.stub().returnsThis(),
+                limit: sandbox.stub().returnsThis(),
                 lean: () => []
             });
         chai

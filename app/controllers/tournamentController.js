@@ -7,7 +7,11 @@ const { generateMatches } = require('../services/matchService');
 
 
 let _getAllTournaments = async (req, res) => {
+    let numperpages = 5 || req.query['limit'];
+    let page = 1 || req.query['page'];
     let tournaments = await Tournament.find()
+         .skip((numperpages * page) - numperpages)
+         .limit(numperpages);
     res.json(tournaments);
 };
 
@@ -143,11 +147,11 @@ let _initialize = async (req, res) => {
     for (let team of req.body) {
         try {
             var options = {
-                url: config.team_url + '/api/v1/teams/team/' + team ,
+                url: config.team_url + '/api/v1/teams/team/' + team,
                 headers: {
-                  'x-access-token': req.header('x-access-token')
+                    'x-access-token': req.header('x-access-token')
                 }
-              };
+            };
             let teaminfo = await request(options)
             console.log(teaminfo)
             teaminfo = JSON.parse(teaminfo)
