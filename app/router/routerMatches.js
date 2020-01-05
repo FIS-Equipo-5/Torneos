@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     // app.put(BASE_API_PATH+"/match/:match_id",matchController.updateMatch);
     app.put(BASE_API_PATH + "/match/:match_id", matchController.updateMatch);
-    // app.put(BASE_API_PATH + "/match/:match_id/stats", matchController.updateMatchStats);
+    app.put(BASE_API_PATH + "/match/:match_id/stats", matchController.updateMatchStats);
 
     app.delete(BASE_API_PATH + "/match/:id", matchController.deleteMatchById);
 }
