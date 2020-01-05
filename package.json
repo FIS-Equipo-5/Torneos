@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "mocha  app/tests/*.js --exit"
+    "test": "mocha  app/tests/match.test.js --exit"
   },
   "repository": {
     "type": "git",

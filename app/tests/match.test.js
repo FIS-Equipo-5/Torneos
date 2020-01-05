@@ -167,6 +167,7 @@ describe("MATCHES: GET methods", () => {
             .get(BASE_API_PATH + '/matches/3')
             .set('x-access-token', token)
             .end((err, res) => {
+                console.log(res.body)
                 expect(res).to.have.status(404);
                 done();
             });

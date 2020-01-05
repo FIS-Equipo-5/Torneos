@@ -29,13 +29,12 @@ describe("GET methods", () => {
             token = res.body.data.token
             done();
         });
-    })
+    });
 
 
     let idTournament;
     it("Get Tournaments", done => {
         let bodyexpeted = {
-            name: "tournament1",
             type: "clasification",
         }
         chai
@@ -45,6 +44,11 @@ describe("GET methods", () => {
             .end((err, res) => {
                 expect(res).to.have.status(200);
                 expect(res.body).to.contain.something.like(bodyexpeted);
+                expect(res.body[0]).to.have.property('name');
+                expect(res.body[0]).to.have.property('type');
+                expect(res.body[0]).to.have.property('endDate');
+                expect(res.body[0]).to.have.property('startDate');
+                expect(res.body[0]).to.have.property('clasification');
                 idTournament = res.body[0]["_id"]
                 done();
             });
@@ -71,7 +75,7 @@ describe("GET methods", () => {
     it("Get a not found tournament", done => {
         chai
             .request(app)
-            .get(BASE_API_PATH + '/tournament/1234' + idTournament)
+            .get(BASE_API_PATH + '/tournament/noexiste' + idTournament)
             .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(404);
