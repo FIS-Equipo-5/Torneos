@@ -139,9 +139,17 @@ let _initialize = async (req, res) => {
         return
     }
     let teams = []
+
     for (let team of req.body) {
         try {
-            let teaminfo = await request(config.team_url + '/api/v1/teams/team/' + team)
+            var options = {
+                url: config.team_url + '/api/v1/teams/team/' + team ,
+                headers: {
+                  'x-access-token': req.header('x-access-token')
+                }
+              };
+            let teaminfo = await request(options)
+            console.log(teaminfo)
             teaminfo = JSON.parse(teaminfo)
             let teamTosave = {
                 points: 0,
