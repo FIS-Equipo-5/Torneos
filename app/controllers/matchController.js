@@ -31,6 +31,12 @@ module.exports.getAllMatches = async function (request, response) {
 module.exports.getMatchById = async function (request, response) {
     try {
         let token = request.headers['x-access-token'];
+        if (!mongoose.Types.ObjectId.isValid(request.params.match_id)) {
+            response.status(400);
+            response.json({ message: "ID not valid" });
+            return
+        }
+        
         let match = await Match.findById(request.params.match_id).lean()
 
         if (!match) {
@@ -94,8 +100,8 @@ module.exports.updateMatch = async function (request, response) {
     try {
         let token = request.headers['x-access-token'];
         if (!mongoose.Types.ObjectId.isValid(request.params.match_id)) {
-            response.status(404);
-            response.json({ message: "Not Found" });
+            response.status(400);
+            response.json({ message: "ID not valid" });
             return
         }
         // await Match.updateOne({ _id: request.params.match_id }, request.body);
@@ -122,16 +128,37 @@ module.exports.updateMatch = async function (request, response) {
 
 };
 
-// module.exports.updateMatchStats = function (request, response) {
-// };
+module.exports.updateMatchStats = async function (request, response) {
+    try {
+        let token = request.headers['x-access-token'];
+        if (!mongoose.Types.ObjectId.isValid(request.params.match_id)) {
+            response.status(400);
+            response.json({ message: "ID not valid" });
+            return
+        }
+        let result = await Match.updateOne({ _id: request.params.match_id }, { stats: request.body.stats });
+        if (result.n == 0) {
+            response.status(404);
+            response.json({ message: "Not Found" });
+            return
+        }
+        response.status(204);
+        response.json({ message: "resource updated successfully" });
+        return
+    } catch (err) {
+        response.status(500);
+        response.json({ message: "Internal Error" });
+        return
+    }
+};
 
 //DELETE
 module.exports.deleteMatchById = async function (request, response) {
     try {
         let token = request.headers['x-access-token'];
         if (!mongoose.Types.ObjectId.isValid(request.params.id)) {
-            response.status(404);
-            response.json({ message: "Not Found" });
+            response.status(400);
+            response.json({ message: "ID not valid" });
             return
         }
         let result = await Match.deleteOne({ _id: request.params.id });
