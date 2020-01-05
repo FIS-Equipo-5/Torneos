@@ -40,6 +40,7 @@
 * @returns {object} 200 - An array with all the matches
 * @returns {Error}  404 - Not Found
 * @returns {Error}  default - Unexpected error
+ * @security JWT
 */
 /**
 * This function retrieve a complete list of matches
@@ -49,6 +50,7 @@
 * @returns {object} 200 - An array with all the matches that belongs to the expecified tournament
 * @returns {Error}  404 - Not Found
 * @returns {Error}  default - Unexpected error
+* @security JWT
 */
 /**
 * This function comment is parsed by doctrine
@@ -58,6 +60,7 @@
 * @returns {object} 200 - the selected match
 * @returns {Error}  default - Unexpected error
 * @returns {Error}  404 - Not Found
+* @security JWT
 */
 /**
 * This function updates the expecified match
@@ -75,4 +78,5 @@
 * @returns {object} 200 - Deleted match
 * @returns {Error}  404 - Not Found
 * @returns {Error}  default - Unexpected error
+* @security JWT
 */
