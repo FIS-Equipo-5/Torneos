@@ -5,6 +5,7 @@ const dbConfig = require('./conf/dbConfig.js');
 const { httpLogger } = require('./app/utils');
 const { logger } = require('./app/utils');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
 
@@ -14,9 +15,14 @@ console.log('Setting up API server');
 
 
 var app = express();
+
+//set cors to be used by third parties
+app.use(cors());
+
 app.use(bodyParser.json());
 
 app.set('secretKey', 'authServiceApi'); // jwt secret token
+
 
 
 //Function that validates jwt token
