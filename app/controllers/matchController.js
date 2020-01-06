@@ -14,6 +14,7 @@ module.exports.getAllMatches = async function (request, response) {
         let numperpages = parseInt(request.query['limit']) || 5;
         let page = parseInt(request.query['page']) || 1;
         let token = request.headers['x-access-token'];
+        let numMatches = await Match.count();
         let matches = await Match.find()
             .skip((numperpages * page) - numperpages)
             .limit(numperpages)
@@ -24,7 +25,7 @@ module.exports.getAllMatches = async function (request, response) {
             let weather = await matchService.getWeather(match);
             match.weather = weather;
         }
-        response.send(matches);
+        response.send({ matches: matches, totalPages: Math.ceil(numMatches / numperpages) });
 
     } catch (err) {
         logger.error("ERROR: GET /matches , Some error occurred while retrieving matches")

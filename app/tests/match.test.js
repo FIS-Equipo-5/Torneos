@@ -94,9 +94,9 @@ describe("MATCHES: GET methods", () => {
             .get(BASE_API_PATH + '/matches')
             .set('x-access-token', token)
             .end((err, res) => {
+                console.log(res.body)
                 expect(res).to.have.status(200);
-                expect(res.body).to.contain.something.like(expected);
-                expect(res.body).to.have.lengthOf(2);
+                expect(res.body.matches).to.contain.something.like(expected);
                 done();
             });
     });
