@@ -166,8 +166,7 @@ describe("MATCHES: GET methods", () => {
             .set('x-access-token', token)
             .end((err, res) => {
                 expect(res).to.have.status(200);
-                expect(res.body).to.contain.something.like(expected);
-                expect(res.body).to.have.lengthOf(2);
+                expect(res.body.matches).to.contain.something.like(expected);
                 done();
             });
 
