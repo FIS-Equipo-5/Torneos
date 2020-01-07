@@ -20,11 +20,6 @@ module.exports.getAllMatches = async function (request, response) {
             .limit(numperpages)
             .lean();
 
-
-        for (let match of matches) {
-            let weather = await matchService.getWeather(match);
-            match.weather = weather;
-        }
         response.send({ matches: matches, totalPages: Math.ceil(numMatches / numperpages) });
 
     } catch (err) {
@@ -79,20 +74,19 @@ module.exports.getMatchByTournamentId = async function (request, response) {
         let numperpages = parseInt(request.query['limit']) || 5;
         let page = parseInt(request.query['page']) || 1;
         let token = request.headers['x-access-token'];
+        let numMatches = await Match.count({ tournamentUuid: request.params.tournament_id });
         let matches = await Match.find({ tournamentUuid: request.params.tournament_id })
             .skip((numperpages * page) - numperpages)
             .limit(numperpages)
             .lean();
-        for (let match of matches) {
-            let weather = await matchService.getWeather(match);
-            match.weather = weather;
-        }
+       
         if (!matches.length) {
             return response.status(404).send({
                 message: "tournament not found with id " + request.params.tournament_id
             });
         }
-        response.send(matches);
+        response.send({ matches: matches, totalPages: Math.ceil(numMatches / numperpages) });
+
     } catch (err) {
         if (err.kind === 'ObjectId') {
             logger.error(` ERROR: -GET /matches/${request.params.tournament_id} - Not found tournament with id: ${request.params.tournament_id}`)

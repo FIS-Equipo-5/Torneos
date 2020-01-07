@@ -24,7 +24,7 @@ module.exports.populate = async function () {
         visitorTeamName: 'Madrid',
         localTeamUuid: '2',
         localTeamName: 'Sevilla',
-        matchDate: moment('2019-12-26 13:00:00'),
+        matchDate: moment('2020-01-10 13:00:00'),
         stats: {
             localScore: 3,
             visitorScore: 1,
@@ -49,13 +49,13 @@ module.exports.populate = async function () {
     await match1.save().catch((error) => logger.warn("Dummy match already created"));
 
     const match2 = new Match({
-        venue_city: 'sevilla',
+        venue_city: 'Barcelona',
         tournamentUuid: '1',
         visitorTeamUuid: '2',
         visitorTeamName: 'Madrid',
         localTeamUuid: '1',
-        localTeamName: 'Sevilla',
-        matchDate: moment('2019-12-29 13:00:00'),
+        localTeamName: 'barcelona',
+        matchDate: moment('2020-01-09 13:00:00'),
         stats: {}
     });
 
@@ -65,10 +65,10 @@ module.exports.populate = async function () {
         venue_city: 'madrid',
         tournamentUuid: '2',
         visitorTeamUuid: '20',
-        visitorTeamName: 'Madrid',
+        visitorTeamName: 'betis',
         localTeamUuid: '10',
-        localTeamName: 'Sevilla',
-        matchDate: moment('2020-01-01 13:00:00'),
+        localTeamName: 'madrid',
+        matchDate: moment('2020-01-08 13:00:00'),
         stats: {}
     });
 
