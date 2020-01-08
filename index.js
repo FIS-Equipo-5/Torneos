@@ -7,7 +7,7 @@ const { logger } = require('./app/utils');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-
+const dbConnect = require('./db');
 
 
 global.BASE_API_PATH = "/api/v1"
@@ -56,12 +56,7 @@ mongoose.Promise = global.Promise;
 
 logger.info(`Connecting to ${dbConfig.url}!`);
 
-mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-}).then(() => {
+dbConnect().then(() => {
     logger.info("Successfully connected to the database")
     app.listen(dbConfig.port, () => {
         logger.info(`Express App listening on port ${dbConfig.port}!`)

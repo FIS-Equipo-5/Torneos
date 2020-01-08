@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "mocha  app/tests/*.js --exit"
+    "test": "mocha  app/tests/*.js --exit",
+    "test-db": "mocha  app/tests/db/*.js --exit"
   },
   "repository": {
     "type": "git",
