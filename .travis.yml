@@ -10,9 +10,7 @@ before_install:
 install:
     - npm install
 script:
-    npm test 
-    npm run test-db
-    docker build -t torneos . 
+    npm test && npm run test-db
 deploy:
     provider: script
     skip_cleanup: true
