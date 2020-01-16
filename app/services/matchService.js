@@ -84,7 +84,8 @@ module.exports.generateMatches = async function (tournamentId, teams) {
                     localTeamUuid: teams[i].team_id,
                     localTeamName: teams[i].name,
                     matchDate: new Date(date),
-                    venue_city: teams[i].venue_city
+                    venue_city: teams[i].venue_city,
+                    stats: { localScore: 0, visitorScore: 0 }
                 });
                 date.setDate(date.getDate() + 7);
                 await match.save();
@@ -104,7 +105,9 @@ module.exports.generateMatches = async function (tournamentId, teams) {
                     localTeamUuid: teams[i].team_id,
                     localTeamName: teams[i].name,
                     matchDate: new Date(date),
-                    venue_city: teams[i].venue_city
+                    venue_city: teams[i].venue_city,
+                    stats: { localScore: 0, visitorScore: 0 }
+
                 });
                 date.setDate(date.getDate() + 7);
                 await match.save();
