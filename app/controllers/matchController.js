@@ -47,12 +47,14 @@ module.exports.getMatchById = async function (request, response) {
                 message: "Match not found with id " + request.params.match_id
             });
         }
-        logger.info(match.visitorTeamName + ' ' + match.localTeamName);
-        let weather = await matchService.getWeather(match);
-        match.weather = weather;
-        logger.info(`SUCCESS: -GET /match/${request.params.match_id}`)
-
+        try {
+            let weather = await matchService.getWeather(match);
+            match.weather = weather;
+        } catch{
+            match.weather = 'no weather data'
+        }
         response.send(match);
+        return
 
     } catch (err) {
         if (err.kind === 'ObjectId') {
@@ -79,7 +81,7 @@ module.exports.getMatchByTournamentId = async function (request, response) {
             .skip((numperpages * page) - numperpages)
             .limit(numperpages)
             .lean();
-       
+
         if (!matches.length) {
             return response.status(404).send({
                 message: "tournament not found with id " + request.params.tournament_id
@@ -111,14 +113,22 @@ module.exports.updateMatch = async function (request, response) {
             return
         }
         // await Match.updateOne({ _id: request.params.match_id }, request.body);
+        console.log('put body', request.body);
         let match = await Match.findByIdAndUpdate({ _id: request.params.match_id }, request.body, {
             new: true
-        });
+        }).lean();
+
         if (!match) {
             response.status(404);
             response.json({ message: "Not Found" });
             return
         } else {
+            try {
+                let weather = await matchService.getWeather(match);
+                match.weather = weather;
+            } catch{
+                match.weather = 'no weather data'
+            }
             response.status(200);
             response.json(match);
             return

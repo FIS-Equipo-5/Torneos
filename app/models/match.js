@@ -10,16 +10,14 @@ const matchSchema = new mongoose.Schema({
         required: true
     },
     visitorTeamUuid: {
-        type: String,
-        required: true
+        type: String
     },
     visitorTeamName: {
         type: String,
         required: true
     },
     localTeamUuid: {
-        type: String,
-        required: true
+        type: String
     },
     localTeamName: {
         type: String,
