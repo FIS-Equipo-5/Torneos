@@ -1,0 +1,289 @@
+{
+	"info": {
+		"_postman_id": "11cdc788-51aa-4b6f-b8d8-5cad57ff3c0f",
+		"name": "tournament-match",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST api/v1/users/authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\"name\": \"test\",\n\t\"email\": \"test@alumn.us.es\",\n\t\"password\": \"tester1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-gr5-auth.herokuapp.com/api/v1/users/authenticate",
+					"protocol": "https",
+					"host": [
+						"fis-gr5-auth",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST - creation tournament",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODIyNzAzMywiZXhwIjoxNTc4MjMwNjMzfQ.tfczNZp2nz_k8X_JFrf2Fwu_ptjdEAG4vAnavlJ0mOM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n   \"name\":\"sssssss\",\n   \"type\":\"clasification\",\n   \"endDate\":\"2019-12-16T19:09:37.935Z\",\n   \"startDate\":\"2019-12-16T19:09:37.936Z\",\n   \"clasification\":[ \n\n   ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/tournament",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tournament"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET a tournament",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODQ3NDM3OCwiZXhwIjoxNTc4NDc3OTc4fQ.eg6dWKWr264zPGnHH33f2kj-FufrfsWpNcgCvjGTebU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/tournaments",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tournaments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  tournaments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODIyNzAzMywiZXhwIjoxNTc4MjMwNjMzfQ.tfczNZp2nz_k8X_JFrf2Fwu_ptjdEAG4vAnavlJ0mOM"
+					}
+				],
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/tournaments/",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tournaments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Update a tournament",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODIyNzAzMywiZXhwIjoxNTc4MjMwNjMzfQ.tfczNZp2nz_k8X_JFrf2Fwu_ptjdEAG4vAnavlJ0mOM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n   \"name\":\"hehehe\",\n   \"type\":\"clasification\",\n   \"endDate\":\"2019-12-16T19:00:37.935Z\",\n   \"startDate\":\"2019-12-16T19:09:37.936Z\",\n   \"clasification\":[ \n\n   ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/tournament/5e0147ba1204d81b9363c85d",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tournament",
+						"5e0147ba1204d81b9363c85d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Tournament",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODIyNzAzMywiZXhwIjoxNTc4MjMwNjMzfQ.tfczNZp2nz_k8X_JFrf2Fwu_ptjdEAG4vAnavlJ0mOM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n   \"name\":\"hehehe\",\n   \"type\":\"clasification\",\n   \"endDate\":\"2019-12-16T19:00:37.935Z\",\n   \"startDate\":\"2019-12-16T19:09:37.936Z\",\n   \"clasification\":[ \n\n   ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/tournament/5e01648d07be6d26234e9ddb?",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tournament",
+						"5e01648d07be6d26234e9ddb"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODIyNzAzMywiZXhwIjoxNTc4MjMwNjMzfQ.tfczNZp2nz_k8X_JFrf2Fwu_ptjdEAG4vAnavlJ0mOM",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT - Init Tournament",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMTFjM2YzNjA5MzE3MDAwZjNjMjNhMCIsImlhdCI6MTU3ODIyNzAzMywiZXhwIjoxNTc4MjMwNjMzfQ.tfczNZp2nz_k8X_JFrf2Fwu_ptjdEAG4vAnavlJ0mOM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n1315,\n1312\n\t]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/tournament/initialize/5e01206cecfa7f0a9260ac73",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tournament",
+						"initialize",
+						"5e01206cecfa7f0a9260ac73"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
