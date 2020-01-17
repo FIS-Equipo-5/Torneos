@@ -78,6 +78,12 @@
 						"v1",
 						"users",
 						"authenticate"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -90,17 +96,18 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODIyMTA4NSwiZXhwIjoxNTc4MjI0Njg1fQ.6-CQRMtCpMUx_V2pCgWjuMerd9cz9DW7BY7qhZhsRp8",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/",
-					"protocol": "http",
+					"raw": "https://fis-g5-tournaments.herokuapp.com/",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						""
 					]
@@ -115,20 +122,28 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3OTE5NjE1NSwiZXhwIjoxNTc5MTk5NzU1fQ.DsEtuH-eCmUNb84GOhwxo6H1AUvs2cGpP3agK0u-vqM",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/api/v1/matches",
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/matches?page=1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"matches"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -141,21 +156,23 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NTAwOCwiZXhwIjoxNTc4MDU4NjA4fQ.xRBB5iMfaUFPizcxF2YZ3FoTcvW8aIzoEOU726f_po4",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3OTI4MDQwNCwiZXhwIjoxNTc5Mjg0MDA0fQ.ZqHbNoFc2wEwE3O3XPUPd-XGT0You-ePDC8DBECsRRw",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/api/v1/matches/2",
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/matches/5e1fc6fbbaf28e000feb59eb",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"matches",
-						"2"
+						"5e1fc6fbbaf28e000feb59eb"
 					]
 				}
 			},
@@ -168,27 +185,23 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3OTI4MDQwNCwiZXhwIjoxNTc5Mjg0MDA0fQ.ZqHbNoFc2wEwE3O3XPUPd-XGT0You-ePDC8DBECsRRw",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/api/v1/match/5e09cf64b22e120b3c6a84f3?=",
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/match/5e20e452227d2e000f0ed030",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"match",
-						"5e09cf64b22e120b3c6a84f3"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": ""
-						}
+						"5e20e452227d2e000f0ed030"
 					]
 				}
 			},
@@ -207,13 +220,13 @@
 					},
 					{
 						"key": "x-access-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3ODA1NDUxMiwiZXhwIjoxNTc4MDU4MTEyfQ.ayw0oOF6LZRbw9pk4GS1YsAO1aM6ioQD1g2BNlkFJQ8",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3OTI4MDQwNCwiZXhwIjoxNTc5Mjg0MDA0fQ.ZqHbNoFc2wEwE3O3XPUPd-XGT0You-ePDC8DBECsRRw",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"stats\": {\r\n        \"localScore\": 1,\r\n        \"visitorScore\": 1,\r\n        \"goals\": [\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1b\",\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"free-kick\",\r\n                \"time\": \"15\"\r\n            },\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1a\",\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"penalty-kick\",\r\n                \"time\": \"90\"\r\n            }\r\n        ],\r\n        \"cards\": [\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1c\",\r\n                \"player\": \"Assunçao\",\r\n                \"type\": \"Yellow\",\r\n                \"time\": \"22\"\r\n            }\r\n        ]\r\n    },\r\n    \"_id\": \"5e02566a280af5000f6aea19\",\r\n    \"tournamentUuid\": \"1\",\r\n    \"visitorTeamUuid\": \"1\",\r\n    \"localTeamUuid\": \"2\",\r\n    \"matchDate\": \"2019-12-24T18:18:18.775Z\",\r\n    \"__v\": 0\r\n}",
+					"raw": "{\r\n    \"stats\": {\r\n        \"localScore\": 1,\r\n        \"visitorScore\": 1,\r\n        \"goals\": [\r\n            {\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"free-kick\",\r\n                \"time\": \"15\"\r\n            },\r\n            {\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"penalty-kick\",\r\n                \"time\": \"90\"\r\n            }\r\n        ],\r\n        \"cards\": [\r\n            {\r\n                \"player\": \"Assunçao\",\r\n                \"type\": \"Yellow\",\r\n                \"time\": \"22\"\r\n            }\r\n        ]\r\n    },\r\n    \"matchDate\": \"2020-01-20T18:18:18.775Z\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -221,16 +234,63 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/match/5e02566a280af5000f6aea19",
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/match/5e20e452227d2e000f0ed030",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
 						"match",
-						"5e02566a280af5000f6aea19"
+						"5e20e452227d2e000f0ed030"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT MATCH STATS",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlMGUwMjE3NmM2ZWYxMDAwZmRiMjY5OCIsImlhdCI6MTU3OTI4MDQwNCwiZXhwIjoxNTc5Mjg0MDA0fQ.ZqHbNoFc2wEwE3O3XPUPd-XGT0You-ePDC8DBECsRRw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"stats\": {\r\n        \"localScore\": 1,\r\n        \"visitorScore\": 1,\r\n        \"goals\": [\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1b\",\r\n                \"player\": \"Joaquin Editado\",\r\n                \"type\": \"free-kick\",\r\n                \"time\": \"15\"\r\n            }\r\n        ],\r\n        \"cards\": [\r\n            {\r\n                \"_id\": \"5e02566a280af5000f6aea1c\",\r\n                \"player\": \"Assunçao\",\r\n                \"type\": \"Yellow\",\r\n                \"time\": \"22\"\r\n            }\r\n        ]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/match/5e20e452227d2e000f0ed030/stats",
+					"protocol": "https",
+					"host": [
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"match",
+						"5e20e452227d2e000f0ed030",
+						"stats"
 					]
 				}
 			},
@@ -248,11 +308,13 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:3000/api/v1/match/5e0f358c9433d05614c53392",
+					"raw": "https://fis-g5-tournaments.herokuapp.com/api/v1/match/5e0f358c9433d05614c53392",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"fis-g5-tournaments",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"api",
 						"v1",
